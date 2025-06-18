@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "title": "OpenAPI Plant Store",
     "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
@@ -10,23 +10,59 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
+      "url": "https://www.atom.com/api/marketplace"
     }
   ],
   "paths": {
-    "/plants": {
+    "/domains": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "GetDomainList (Premium, Standard, Geo, All)",
         "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Domain Type (standard, premium or geo)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["standard", "premium", "geo"]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
           {
             "name": "limit",
             "in": "query",
-            "description": "The maximum number of results to return",
+            "description": "Number of domains to return",
+            "required": false,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -35,60 +71,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Plant"
+                    "$ref": "#/components/schemas/Domain"
                   }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -96,32 +86,1505 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/domain/search": {
+      "get": {
+        "description": "Search Domains based on the keyword or category",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Search by category",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Search by Keyword",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_type",
+            "in": "query",
+            "description": "Search by Type of Name",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "description": "List the categories for domains",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain-details": {
+      "get": {
+        "description": "Get details for a specific domain listing",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/add-domain": {
+      "get": {
+        "description": "Add a new domain to Atom. For premium listing, a coin will be deducted from your account and the domain will be submitted for review. For a Standard or Geo listing, the domain landing page will immediately go live",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_type",
+            "in": "query",
+            "description": "Domain Type (standard, premium or geo)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["standard", "premium", "geo"]
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Domain Price",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/remove-domain": {
+      "get": {
+        "description": "Remove a Standard listing from your account. This method only supports Standard listings. For removing Premium Listings, please contact Atom team to give a 7 day removal notice",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "true"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update-selling-price": {
+      "get": {
+        "description": "Update the selling price of a domain. There are no restrictions for Standard Listings. For Premium Listings, the selling price must be within the allowed range as per your Membership Tier (e.g. Silver, Gold, Platinum)",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "selling_price",
+            "in": "query",
+            "description": "Selling Price",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/primary-categories": {
+      "get": {
+        "description": "Primary categories (industry) list",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assign-primary-category": {
+      "get": {
+        "description": "GetDomainList (Premium, Standard, Geo, All)1",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category_name",
+            "in": "query",
+            "description": "Category Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update-description": {
+      "post": {
+        "description": "Add or update a description for Domain",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "domain_description",
+            "in": "query",
+            "description": "Category Description",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/all-sales": {
+      "get": {
+        "description": "Get a list of all your domain sales on Atom platform",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_type",
+            "in": "query",
+            "description": "Domain Type",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["standard", "premium"]
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of domains to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/syndication-authorized-domains": {
+      "get": {
+        "description": "Get a list of domains authorized for listing on external platforms",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of domains to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/boost-domain": {
+      "get": {
+        "description": "Boost your Premium domains (Standard Boost or Super Boost). Coins will be deducted from your account balance",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "boosting_type",
+            "in": "query",
+            "description": "Boosting Type (Standard or Super)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "enum": ["Standard", "Super"]
+            }
+          },
+          {
+            "name": "source_of_deduction",
+            "in": "query",
+            "description": "Source of Deduction ('points’, 'coins’, ‘loyalty_benefit’)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "enum": ["Standard", "Super"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain-analytics": {
+      "get": {
+        "description": "Get analytics related to your domains (e.g. Views and Shortlists)",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/add-discount": {
+      "get": {
+        "description": "Get analytics related to your domains (e.g. Views and Shortlists)",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "discount",
+            "in": "query",
+            "description": "Discount",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/verify-dns": {
+      "get": {
+        "description": "Verify DNS of the given domain",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload-grade-domains": {
+      "post": {
+        "description": "Upload Domains For Grading",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domains_data",
+            "in": "query",
+            "description": "List of Domains, comma seperated",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-grade-domain-result": {
+      "get": {
+        "description": "Grade Domains Result",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Size",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "brand_fit_only",
+            "in": "query",
+            "description": "Brand Fit Only",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/smart-domain-search": {
+      "get": {
+        "description": "Smart Domain Search",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Describe your business (Ex: Beauty Brand)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/partnership-search": {
+      "get": {
+        "description": "Get Available Domains which are Approved status",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search Query to Pass",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Page size",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain-data": {
+      "get": {
+        "description": "Get Domain Details with the Domain Name",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name or Domain ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hold-domain": {
+      "post": {
+        "description": "Hold Domain Request",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_id",
+            "in": "query",
+            "description": "Domain ID to pass",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/confirm-order": {
+      "post": {
+        "description": "Confirm Order on the Hold Domains",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_id",
+            "in": "query",
+            "description": "Domain ID to pass",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "payment_amount",
+            "in": "query",
+            "description": "Custom Amount other than selling_price",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unhold-domain": {
+      "post": {
+        "description": "UnHold Domain Request",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_id",
+            "in": "query",
+            "description": "Domain ID to pass",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submit-transfer-code": {
+      "post": {
+        "description": "Submit Transfer Code",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_id",
+            "in": "query",
+            "description": "Domain ID to pass",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "domain_codeid",
+            "in": "query",
+            "description": "Auth Code",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-transfer-auth-code": {
+      "post": {
+        "description": "Get Transfer Auth Code",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_id",
+            "in": "query",
+            "description": "Domain ID to pass",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/started-transfer": {
+      "post": {
+        "description": "Started Transfer",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_id",
+            "in": "query",
+            "description": "Domain ID to pass",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
                 }
               }
             }
@@ -132,6 +1595,22 @@
   },
   "components": {
     "schemas": {
+      "Domain": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Example Value",
+            "type": "string"
+          },
+          "tag": {
+            "description": "Model",
+            "type": "string"
+          }
+        }
+      },
       "Plant": {
         "required": [
           "name"
@@ -139,7 +1618,7 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "The name of the plant",
+            "description": "The name of the plant1",
             "type": "string"
           },
           "tag": {

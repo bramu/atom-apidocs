@@ -7,95 +7,70 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "logo/fav.png",
   "navigation": {
     "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          }
-        ]
-      },
       {
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Seller API's",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/seller_apis/domains",
+              "api-reference/seller_apis/categories",
+              "api-reference/seller_apis/domain/search",
+              "api-reference/seller_apis/domain_details",
+              "api-reference/seller_apis/add_domain",
+              "api-reference/seller_apis/remove_domain",
+              "api-reference/seller_apis/update_selling_price",
+              "api-reference/seller_apis/primary_categories",
+              "api-reference/seller_apis/assign_primary_category",
+              "api-reference/seller_apis/update_description",
+              "api-reference/seller_apis/all_sales",
+              "api-reference/seller_apis/syndication_authorized_domains",
+              "api-reference/seller_apis/boost_domain",
+              "api-reference/seller_apis/domain_analytics",
+              "api-reference/seller_apis/add_discount",
+              "api-reference/seller_apis/verify_dns",
+              "api-reference/seller_apis/upload_grade_domains",
+              "api-reference/seller_apis/get_grade_domain_result"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Parnership API's",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
+              "api-reference/parnership_apis/partnership_search",
+              "api-reference/parnership_apis/domain_data",
+              "api-reference/parnership_apis/hold_domain",
+              "api-reference/parnership_apis/confirm_order",
+              "api-reference/parnership_apis/unhold_domain",
+              "api-reference/parnership_apis/submit_transfer_code",
+              "api-reference/parnership_apis/get_transfer_auth_code",
+              "api-reference/parnership_apis/started_transfer"
+            ]
+          },
+          {
+            "group": "Smart Search API's",
+            "pages": [
+              "api-reference/smart_search_apis/smart_domain_search"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "facebook": "https://www.facebook.com/atomdotcom",
+      "x": "https://x.com/atomhq",
+      "instagram": "https://www.instagram.com/workwithatom/",
+      "linkedin": "https://www.linkedin.com/company/atomdotcom/",
+      "youtube": "https://www.youtube.com/@atomdotcom"
+      
     }
   }
 }
