@@ -1145,6 +1145,98 @@
         }
       }
     },
+    "/trademark-search": {
+      "get": {
+        "description": "Search for trademarks in the USPTO database based on keyword and various filters. Requires dedicated Trademark API token.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "Trademark API token (dedicated for trademark functionality)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{trademark_api_key}}"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Keyword to search for in trademark names",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Google"
+            }
+          },
+          {
+            "name": "search_type",
+            "in": "query",
+            "description": "Type of search to perform",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filing_status",
+            "in": "query",
+            "description": "Filter by trademark filing status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "class",
+            "in": "query",
+            "description": "International class filter (e.g., ‘009’ for computer software)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results per page (max 100)",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/partnership-search": {
       "get": {
         "description": "Get Available Domains which are Approved status",
@@ -1572,6 +1664,181 @@
             "required": true,
             "schema": {
               "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domain-appraisal": {
+      "get": {
+        "description": "Get an AI-powered appraisal for a domain including estimated price, domain score, key signals, and root words. Accepts either dedicated Appraisal API token OR Seller API token with atom_seller=1 permission.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key (Appraisal API token OR Seller API token with atom_seller=1 permission) Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain Name to appraise",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/semantic-search": {
+      "get": {
+        "description": "Search for domain names using AI-powered semantic search with embeddings and Pinecone. This API creates embeddings for natural language queries and finds semantically similar domains.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token. Default value: 739",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "739"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Natural language search query (e.g., 'tech startup names’, ‘healthcare companies’) Example: tech startup names",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filters",
+            "in": "query",
+            "description": "Optional filters to apply to the search (JSON string)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination (default: 1). Default value: 1. Example: 1",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of results per page (default: 20, max: 100). Default value: 20. Example: 20",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/new-listings": {
+      "get": {
+        "description": "Get domains that were approved on a specific date. Returns domains with status ‘Approved’ or ‘Seller Approved’ (with dns_checked != 0) where approved_date matches the specified date.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "API Key to get the details. Default value: debc30f791373983",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "debc30f791373983"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date in YYYY-MM-DD format to get listings for Example: 2025-07-21",
+            "required": true,
+            "schema": {
+              "type": "date"
+            }
+          },
+          {
+            "name": "listing_type",
+            "in": "query",
+            "description": "Filter by listing type. ‘Curated’ returns only Approved status domains. ‘All’ returns both Approved and Seller Approved domains. Default value: All",
+            "schema": {
+              "type": "string"
             }
           }
         ],

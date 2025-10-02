@@ -40,19 +40,33 @@
             "group": "Parnership API's",
             "pages": [
               "api-reference/parnership_apis/partnership_search",
+              "api-reference/parnership_apis/new_listings",
               "api-reference/parnership_apis/domain_data",
               "api-reference/parnership_apis/hold_domain",
               "api-reference/parnership_apis/confirm_order",
               "api-reference/parnership_apis/unhold_domain",
               "api-reference/parnership_apis/submit_transfer_code",
               "api-reference/parnership_apis/get_transfer_auth_code",
-              "api-reference/parnership_apis/started_transfer"
+              "api-reference/parnership_apis/started_transfer",
+              "api-reference/parnership_apis/semantic_search"
             ]
           },
           {
             "group": "Smart Search API's",
             "pages": [
               "api-reference/smart_search_apis/smart_domain_search"
+            ]
+          },
+          {
+            "group": "Domain Appraisal API's",
+            "pages": [
+              "api-reference/appraisal_apis/domain_appraisal"
+            ]
+          },
+          {
+            "group": "Trademark Search API's",
+            "pages": [
+              "api-reference/trademark_apis/trademark_search"
             ]
           }
         ]
