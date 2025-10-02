@@ -10,7 +10,12 @@
   },
   "servers": [
     {
-      "url": "https://www.atom.com/api/marketplace"
+      "url": "https://dev.atom.com/api/marketplace",
+      "description": "Development server"
+    },
+    {
+      "url": "https://www.atom.com/api/marketplace",
+      "description": "Production server"
     }
   ],
   "paths": {
@@ -21,21 +26,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -93,21 +96,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -162,21 +163,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           }
         ],
@@ -204,21 +203,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -255,21 +252,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -327,21 +322,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -378,21 +371,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -440,21 +431,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           }
         ],
@@ -482,21 +471,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -543,21 +530,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -604,21 +589,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -676,21 +659,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -738,21 +719,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -810,21 +789,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -862,21 +839,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -924,21 +899,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -976,21 +949,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1028,21 +999,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1100,21 +1069,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1123,8 +1090,7 @@
             "description": "Describe your business (Ex: Beauty Brand)",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           }
         ],
@@ -1165,8 +1131,7 @@
             "description": "UserId of the API Token",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1244,21 +1209,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1314,21 +1277,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1365,21 +1326,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1416,21 +1375,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1477,21 +1434,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1528,21 +1483,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1589,21 +1542,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1640,21 +1591,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1691,21 +1640,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key (Appraisal API token OR Seller API token with atom_seller=1 permission) Default value: debc30f791373983",
+            "description": "API Key (Appraisal API token OR Seller API token with atom_seller=1 permission)",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1742,21 +1689,19 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token. Default value: 739",
+            "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "739"
+              "type": "string"
             }
           },
           {
@@ -1817,11 +1762,10 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details. Default value: debc30f791373983",
+            "description": "API Key to get the details.",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": "debc30f791373983"
+              "type": "string"
             }
           },
           {
