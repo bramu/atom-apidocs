@@ -38,7 +38,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -108,7 +108,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -175,7 +175,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],
@@ -215,7 +215,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -264,7 +264,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -334,7 +334,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -383,7 +383,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -443,7 +443,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],
@@ -483,7 +483,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -542,7 +542,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -601,7 +601,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -671,7 +671,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -731,7 +731,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -801,7 +801,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -851,7 +851,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -911,7 +911,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -961,7 +961,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1011,7 +1011,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1081,7 +1081,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1131,7 +1131,7 @@
             "description": "UserId of the API Token",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1221,7 +1221,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1289,7 +1289,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1338,7 +1338,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1387,7 +1387,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1446,7 +1446,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1495,7 +1495,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1544,7 +1544,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1593,7 +1593,7 @@
             "description": "UserId of the API Token.",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1658,6 +1658,15 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "UserId of the API Token.",
+            "required": true,
+            "schema": {
+              "type": "integer"
             }
           },
           {
