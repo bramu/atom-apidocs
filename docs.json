@@ -51,9 +51,7 @@
               "api-reference/parnership_apis/hold_domain",
               "api-reference/parnership_apis/confirm_order",
               "api-reference/parnership_apis/unhold_domain",
-              "api-reference/parnership_apis/submit_transfer_code",
               "api-reference/parnership_apis/get_transfer_auth_code",
-              "api-reference/parnership_apis/started_transfer",
               "api-reference/parnership_apis/semantic_search"
             ]
           },
