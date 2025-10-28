@@ -10,12 +10,12 @@
   },
   "servers": [
     {
-      "url": "https://dev.atom.com/api/marketplace",
-      "description": "Development server"
-    },
-    {
       "url": "https://www.atom.com/api/marketplace",
       "description": "Production server"
+    },
+    {
+      "url": "https://dev.atom.com/api/marketplace",
+      "description": "Development server"
     }
   ],
   "paths": {
