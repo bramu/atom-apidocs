@@ -20,6 +20,19 @@
         "tab": "API Reference",
         "groups": [
           {
+            "group": "Parnership API's",
+            "pages": [
+              "api-reference/parnership_apis/partnership_search",
+              "api-reference/parnership_apis/new_listings",
+              "api-reference/parnership_apis/domain_data",
+              "api-reference/parnership_apis/hold_domain",
+              "api-reference/parnership_apis/confirm_order",
+              "api-reference/parnership_apis/unhold_domain",
+              "api-reference/parnership_apis/get_transfer_auth_code",
+              "api-reference/parnership_apis/semantic_search"
+            ]
+          },
+          {
             "group": "Seller API's",
             "pages": [
               "api-reference/seller_apis/domains",
@@ -40,19 +53,6 @@
               "api-reference/seller_apis/verify_dns",
               "api-reference/seller_apis/upload_grade_domains",
               "api-reference/seller_apis/get_grade_domain_result"
-            ]
-          },
-          {
-            "group": "Parnership API's",
-            "pages": [
-              "api-reference/parnership_apis/partnership_search",
-              "api-reference/parnership_apis/new_listings",
-              "api-reference/parnership_apis/domain_data",
-              "api-reference/parnership_apis/hold_domain",
-              "api-reference/parnership_apis/confirm_order",
-              "api-reference/parnership_apis/unhold_domain",
-              "api-reference/parnership_apis/get_transfer_auth_code",
-              "api-reference/parnership_apis/semantic_search"
             ]
           },
           {
