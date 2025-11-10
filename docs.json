@@ -17,21 +17,31 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "Parnership APIs",
         "groups": [
           {
-            "group": "Parnership API's",
+            "group": "Guides",
+            "pages": [
+              "guides/partnership_apis"
+            ]
+          },
+          {
+            "group": "APIs List",
             "pages": [
               "api-reference/parnership_apis/partnership_search",
-              "api-reference/parnership_apis/new_listings",
               "api-reference/parnership_apis/domain_data",
               "api-reference/parnership_apis/hold_domain",
-              "api-reference/parnership_apis/confirm_order",
               "api-reference/parnership_apis/unhold_domain",
+              "api-reference/parnership_apis/confirm_order",
               "api-reference/parnership_apis/get_transfer_auth_code",
               "api-reference/parnership_apis/semantic_search"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Other APIs",
+        "groups": [
           {
             "group": "Seller API's",
             "pages": [
