@@ -79,10 +79,10 @@
         ]
       },
       {
-        "tab": "Other APIs",
+        "tab": "Seller APIs",
         "groups": [
           {
-            "group": "Seller API's",
+            "group": "APIs List",
             "pages": [
               "api-reference/seller_apis/domains",
               "api-reference/seller_apis/categories",
@@ -103,7 +103,12 @@
               "api-reference/seller_apis/upload_grade_domains",
               "api-reference/seller_apis/get_grade_domain_result"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Other APIs",
+        "groups": [
           {
             "group": "Smart Search API's",
             "pages": [
