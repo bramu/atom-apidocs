@@ -1,0 +1,2231 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Atom Registrar API",
+    "version": "1.0.0",
+    "description": "REST API for domain registration, DNS management, and domain operations. Authentication via Bearer token in Authorization header."
+  },
+  "servers": [
+    {
+      "url": "https://atom.com/api/registrar/v1",
+      "description": "Production server"
+    },
+    {
+      "url": "http://local.sh.com:2080/api/registrar/v1",
+      "description": "Development server"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/domains": {
+      "get": {
+        "summary": "List all domains",
+        "description": "Get a paginated list of all domains owned by the authenticated user. Supports search, filtering by extension, and pagination.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination (default: 1)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of results per page (default: 20, max: 100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search term to filter domains by name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "extension",
+            "in": "query",
+            "description": "Filter domains by TLD extension (e.g., 'com', 'net')",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/check/{domain_name}": {
+      "get": {
+        "summary": "Check domain availability",
+        "description": "Check if a single domain name is available for registration. Returns cached results from database.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name to check (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainCheckResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/check-bulk": {
+      "post": {
+        "summary": "Check multiple domains availability",
+        "description": "Check availability for multiple domain names (max 50 domains per request). Returns cached results from database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkDomainCheckRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkDomainCheckResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/domains/register": {
+      "post": {
+        "summary": "Register a new domain",
+        "description": "Register a new domain name using cart system. Performs non-cached availability check, processes payment (account balance or saved card), registers domain with 60-day transfer lock and parking nameservers. Each API request creates an isolated cart for the single requested domain.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomainRegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Domain registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainRegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "402": {
+            "description": "Payment failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}": {
+      "get": {
+        "summary": "Get domain details",
+        "description": "Get detailed information about a specific domain including status, expiry date, nameservers, DNSSEC status, and contact information.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/records": {
+      "get": {
+        "summary": "List DNS records",
+        "description": "Get all active DNS records for a domain. Syncs with PowerDNS before returning results.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnsRecordsListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create DNS record",
+        "description": "Create a new DNS record for the domain. Supports A, AAAA, CNAME, MX, TXT, SRV, CAA, and other standard record types.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DnsRecordCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "DNS record created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnsRecordResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/records/{record_id}": {
+      "put": {
+        "summary": "Update DNS record",
+        "description": "Update an existing DNS record. All fields are optional; only provided fields will be updated.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "description": "DNS record ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DnsRecordUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "DNS record updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnsRecordResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete DNS record",
+        "description": "Delete a specific DNS record by its ID.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "description": "DNS record ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DNS record deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/nameservers": {
+      "get": {
+        "summary": "Get domain nameservers",
+        "description": "Get the current nameservers configured for a domain. Returns nameserver list and type (atom, parking, or custom).",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NameserversResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update domain nameservers",
+        "description": "Update nameservers for a domain. Supports atom, parking, or custom nameservers. Automatically disables DNSSEC if switching nameserver types.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NameserversUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Nameservers updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NameserversResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/privacy": {
+      "put": {
+        "summary": "Toggle domain privacy protection",
+        "description": "Enable or disable WHOIS privacy protection for a domain. May require contact verification via email.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivacyUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Privacy protection updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Privacy protection update accepted, verification required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyVerificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/auto-renew": {
+      "put": {
+        "summary": "Toggle domain auto-renewal",
+        "description": "Enable or disable automatic renewal for a domain before expiration.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoRenewUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auto-renewal updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoRenewResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Auto-renewal toggle request accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutoRenewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/url-forwards": {
+      "get": {
+        "summary": "Get URL forwarding rules",
+        "description": "Get all active URL forwarding rules configured for a domain.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UrlForwardsListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create URL forward",
+        "description": "Create a new URL forwarding rule for a domain. Supports permanent (301) and temporary (302) redirects.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UrlForwardCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "URL forward created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UrlForwardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/url-forwards/{forward_id}": {
+      "delete": {
+        "summary": "Delete URL forward",
+        "description": "Delete a specific URL forwarding rule by its ID.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "forward_id",
+            "in": "path",
+            "description": "URL forward ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "URL forward deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/dns/filter": {
+      "get": {
+        "summary": "Filter DNS records",
+        "description": "Filter DNS records by subdomain and/or record type. Useful for finding specific records.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subdomain",
+            "in": "query",
+            "description": "Subdomain to filter by (use '@' for root domain)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "DNS record type to filter by (A, AAAA, CNAME, MX, TXT, etc.)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnsRecordsFilterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/dns/bulk-update": {
+      "put": {
+        "summary": "Bulk update DNS records",
+        "description": "Update all DNS records matching specific subdomain and type criteria. Updates content and optionally TTL for all matching records.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DnsBulkUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "DNS records updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkOperationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/dns/bulk-delete": {
+      "delete": {
+        "summary": "Bulk delete DNS records",
+        "description": "Delete all DNS records matching specific subdomain and type criteria. Type parameter is required.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subdomain",
+            "in": "query",
+            "description": "Subdomain to filter by (use '@' for root domain, optional)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "DNS record type to delete (A, AAAA, CNAME, MX, TXT, etc.)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DNS records deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkOperationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/dnssec": {
+      "get": {
+        "summary": "Get DNSSEC records",
+        "description": "Get DNSSEC DS records for a domain. Returns parsed records with algorithm and digest type names.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnssecResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/dnssec/enable": {
+      "post": {
+        "summary": "Enable DNSSEC",
+        "description": "Enable DNSSEC for a domain. Only available for domains using Atom or Parking nameservers.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DNSSEC enabled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnssecToggleResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/domains/{domain_name}/dnssec/disable": {
+      "post": {
+        "summary": "Disable DNSSEC",
+        "description": "Disable DNSSEC for a domain. Required before changing nameservers.",
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "description": "Domain name (e.g., 'example.com')",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DNSSEC disabled successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DnssecToggleResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Registrar API Bearer token. Obtain from dashboard at /dashboard/seller/api-access after requesting Registrar API access."
+      }
+    },
+    "schemas": {
+      "DomainListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DomainSummary"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "DomainSummary": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "example": "example.com"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          },
+          "extension": {
+            "type": "string",
+            "example": "com"
+          },
+          "created_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-15 10:30:00"
+          },
+          "updated_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-02-10 14:20:00"
+          },
+          "expiry_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-01-15 10:30:00"
+          },
+          "auto_renew": {
+            "type": "boolean",
+            "example": true
+          },
+          "privacy_protect": {
+            "type": "boolean",
+            "example": false
+          },
+          "transfer_locked": {
+            "type": "boolean",
+            "example": true
+          },
+          "dnssec_enabled": {
+            "type": "boolean",
+            "example": false
+          },
+          "nameservers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ns1.atom.com", "ns2.atom.com"]
+          },
+          "registrant_handle": {
+            "type": "string",
+            "example": "REG_12345"
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "current_page": {
+            "type": "integer",
+            "example": 1
+          },
+          "total_pages": {
+            "type": "integer",
+            "example": 5
+          },
+          "per_page": {
+            "type": "integer",
+            "example": 20
+          },
+          "total_records": {
+            "type": "integer",
+            "example": 87
+          }
+        }
+      },
+      "DomainCheckResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "availability": {
+                "type": "integer",
+                "description": "1 = available, 0 = unavailable, -1 = unknown",
+                "example": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": ["available", "unavailable", "unknown"],
+                "example": "available"
+              }
+            }
+          }
+        }
+      },
+      "BulkDomainCheckRequest": {
+        "type": "object",
+        "required": ["domains"],
+        "properties": {
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 50,
+            "example": ["example.com", "test.net", "sample.org"]
+          }
+        }
+      },
+      "BulkDomainCheckResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "total_requested": {
+                "type": "integer",
+                "example": 3
+              },
+              "successfully_checked": {
+                "type": "integer",
+                "example": 2
+              },
+              "errors": {
+                "type": "integer",
+                "example": 1
+              },
+              "results": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "domain": {
+                      "type": "string",
+                      "example": "example.com"
+                    },
+                    "availability": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "available"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Error message if status is error or invalid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DomainRegistrationRequest": {
+        "type": "object",
+        "required": ["domain_name"],
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "example": "example.com"
+          },
+          "registration_length": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 1,
+            "example": 2,
+            "description": "Number of years to register (1-10)"
+          }
+        }
+      },
+      "DomainRegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Domain registered successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "registration_length": {
+                "type": "integer",
+                "example": 2
+              },
+              "payment_method": {
+                "type": "string",
+                "enum": ["account_balance", "saved_card"],
+                "example": "account_balance"
+              },
+              "cart_id": {
+                "type": "integer",
+                "example": 12345
+              },
+              "price_breakdown": {
+                "type": "object",
+                "properties": {
+                  "unit_price": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 9.99
+                  },
+                  "registration_length": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "subtotal": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 19.98
+                  },
+                  "vat_amount": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 0
+                  },
+                  "total": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 19.98
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "example": "Completed"
+              }
+            }
+          }
+        }
+      },
+      "DomainDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "status": {
+                "type": "string",
+                "example": "active"
+              },
+              "whois_status": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["clientTransferProhibited", "ok"]
+              },
+              "extension": {
+                "type": "string",
+                "example": "com"
+              },
+              "created_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expiry_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "auto_renew": {
+                "type": "boolean",
+                "example": true
+              },
+              "auto_renew_period": {
+                "type": "integer",
+                "example": 12
+              },
+              "privacy_protect": {
+                "type": "boolean",
+                "example": false
+              },
+              "transfer_locked": {
+                "type": "boolean",
+                "example": true
+              },
+              "dnssec_enabled": {
+                "type": "boolean",
+                "example": false
+              },
+              "nameservers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["ns1.atom.com", "ns2.atom.com"]
+              },
+              "registrant_handle": {
+                "type": "string",
+                "example": "REG_12345"
+              },
+              "admin_handle": {
+                "type": "string",
+                "nullable": true
+              },
+              "tech_handle": {
+                "type": "string",
+                "nullable": true
+              },
+              "billing_handle": {
+                "type": "string",
+                "nullable": true
+              },
+              "registrant_contact": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "organization": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DnsRecordsListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/DnsRecord"
+                }
+              }
+            }
+          }
+        }
+      },
+      "DnsRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 123
+          },
+          "type": {
+            "type": "string",
+            "example": "A"
+          },
+          "name": {
+            "type": "string",
+            "example": "@"
+          },
+          "content": {
+            "type": "string",
+            "example": "192.0.2.1"
+          },
+          "ttl": {
+            "type": "integer",
+            "example": 3600
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DnsRecordCreateRequest": {
+        "type": "object",
+        "required": ["type", "content"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "NS"],
+            "example": "A"
+          },
+          "name": {
+            "type": "string",
+            "description": "Subdomain name (use empty string or '@' for root domain)",
+            "example": "www"
+          },
+          "content": {
+            "type": "string",
+            "example": "192.0.2.1"
+          },
+          "ttl": {
+            "type": "integer",
+            "default": 3600,
+            "example": 3601
+          },
+          "comment": {
+            "type": "string",
+            "description": "Optional comment for the record"
+          },
+          "priority": {
+            "type": "integer",
+            "description": "Priority for MX and SRV records"
+          },
+          "weight": {
+            "type": "integer",
+            "description": "Weight for SRV records"
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port for SRV records"
+          },
+          "target": {
+            "type": "string",
+            "description": "Target for SRV records"
+          },
+          "service": {
+            "type": "string",
+            "description": "Service name for SRV records (e.g., '_http')"
+          },
+          "protocol": {
+            "type": "string",
+            "description": "Protocol for SRV records (e.g., '_tcp')"
+          },
+          "flags": {
+            "type": "integer",
+            "description": "Flags for CAA records"
+          },
+          "tag": {
+            "type": "string",
+            "description": "Tag for CAA records (e.g., 'issue')"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value for CAA records"
+          }
+        }
+      },
+      "DnsRecordUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "A"
+          },
+          "name": {
+            "type": "string",
+            "example": "www"
+          },
+          "content": {
+            "type": "string",
+            "example": "192.0.2.2"
+          },
+          "ttl": {
+            "type": "integer",
+            "example": 7200
+          },
+          "comment": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "weight": {
+            "type": "integer"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "target": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "protocol": {
+            "type": "string"
+          },
+          "flags": {
+            "type": "integer"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "DnsRecordResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "DNS record created successfully"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DnsRecord"
+          }
+        }
+      },
+      "NameserversResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "nameservers": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["ns1.atom.com", "ns2.atom.com"]
+              },
+              "type": {
+                "type": "string",
+                "enum": ["atom", "parking", "custom"],
+                "example": "atom"
+              }
+            }
+          }
+        }
+      },
+      "NameserversUpdateRequest": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["atom", "parking", "custom"],
+            "example": "custom",
+            "description": "Nameserver type: 'atom' uses Atom nameservers, 'parking' uses parking nameservers, 'custom' requires nameservers array"
+          },
+          "nameservers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Required if type is 'custom'. Array of nameserver hostnames.",
+            "example": ["ns1.example.com", "ns2.example.com"]
+          }
+        }
+      },
+      "PrivacyUpdateRequest": {
+        "type": "object",
+        "required": ["enabled"],
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Enable or disable WHOIS privacy protection"
+          }
+        }
+      },
+      "PrivacyResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Privacy protection updated successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "privacy_protect": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "PrivacyVerificationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Please verify your contact info via email to complete privacy protection update"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "privacy_protect": {
+                "type": "boolean"
+              },
+              "verification_required": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "AutoRenewUpdateRequest": {
+        "type": "object",
+        "required": ["enabled"],
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "example": true,
+            "description": "Enable or disable automatic renewal"
+          }
+        }
+      },
+      "AutoRenewResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Auto-renewal updated successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "auto_renew": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "UrlForwardsListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "forwards": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/UrlForward"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UrlForward": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 456
+          },
+          "source": {
+            "type": "string",
+            "example": "www"
+          },
+          "destination": {
+            "type": "string",
+            "example": "https://www.example.com"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["permanent", "temporary"],
+            "example": "permanent"
+          }
+        }
+      },
+      "UrlForwardCreateRequest": {
+        "type": "object",
+        "required": ["destination"],
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Source subdomain (empty for root domain)",
+            "example": "www"
+          },
+          "destination": {
+            "type": "string",
+            "example": "https://www.example.com",
+            "description": "Full destination URL"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["permanent", "temporary"],
+            "default": "temporary",
+            "example": "permanent",
+            "description": "Redirect type: 'permanent' (301) or 'temporary' (302)"
+          }
+        }
+      },
+      "UrlForwardResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "URL forward created successfully"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UrlForward"
+          }
+        }
+      },
+      "DnsRecordsFilterResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "filters": {
+                "type": "object",
+                "properties": {
+                  "subdomain": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "www"
+                  },
+                  "type": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "A"
+                  }
+                }
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/DnsRecord"
+                }
+              }
+            }
+          }
+        }
+      },
+      "DnsBulkUpdateRequest": {
+        "type": "object",
+        "required": ["type", "content"],
+        "properties": {
+          "subdomain": {
+            "type": "string",
+            "description": "Subdomain to update (use '@' for root domain, omit to update all subdomains)",
+            "example": "www"
+          },
+          "type": {
+            "type": "string",
+            "example": "A",
+            "description": "DNS record type to update"
+          },
+          "content": {
+            "type": "string",
+            "example": "192.0.2.100",
+            "description": "New content value for all matching records"
+          },
+          "ttl": {
+            "type": "integer",
+            "example": 7200,
+            "description": "Optional: new TTL value for all matching records"
+          }
+        }
+      },
+      "BulkOperationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Updated 5 DNS record(s)"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "updated_count": {
+                "type": "integer",
+                "example": 5,
+                "description": "Number of records updated (for bulk-update)"
+              },
+              "deleted_count": {
+                "type": "integer",
+                "example": 3,
+                "description": "Number of records deleted (for bulk-delete)"
+              }
+            }
+          }
+        }
+      },
+      "DnssecResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "dnssec_enabled": {
+                "type": "boolean",
+                "example": true
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/DnssecRecord"
+                }
+              },
+              "raw_records": {
+                "type": "array",
+                "description": "Raw DNSSEC records as stored"
+              }
+            }
+          }
+        }
+      },
+      "DnssecRecord": {
+        "type": "object",
+        "properties": {
+          "key_tag": {
+            "type": "string",
+            "example": "40741"
+          },
+          "algorithm": {
+            "type": "string",
+            "example": "13"
+          },
+          "digest_type": {
+            "type": "string",
+            "example": "2"
+          },
+          "digest": {
+            "type": "string",
+            "example": "cd3a761d64ec93d9d1c11339b9b9a1a0339e1dc8384fd61180d9795311659d77"
+          },
+          "algorithm_name": {
+            "type": "string",
+            "example": "ECDSA Curve P-256 with SHA-256"
+          },
+          "digest_type_name": {
+            "type": "string",
+            "example": "SHA-256"
+          }
+        }
+      },
+      "DnssecToggleResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "DNSSEC enabled successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "dnssec_enabled": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "string",
+            "example": "Bad Request"
+          },
+          "message": {
+            "type": "string",
+            "example": "Invalid input provided"
+          }
+        }
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Authentication failed - invalid or revoked API token",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid registrar API token or access has been revoked. Please request registrar API access from your dashboard."
+                }
+              }
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Bad request - invalid parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Forbidden - operation not allowed for this domain",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "ServiceUnavailable": {
+        "description": "Service temporarily unavailable",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  }
+}

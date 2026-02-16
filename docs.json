@@ -8,6 +8,10 @@
     "dark": "#15803D"
   },
   "favicon": "/logo/fav.png",
+  "openapi": [
+    "api-reference/openapi.json",
+    "api-reference/registrar_apis/openapi.json"
+  ],
   "navigation": {
     "tabs": [
       {
@@ -35,6 +39,41 @@
               "api-reference/parnership_apis/confirm_order",
               "api-reference/parnership_apis/get_transfer_auth_code",
               "api-reference/parnership_apis/semantic_search"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Registrar APIs",
+        "groups": [
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/registrar_apis"
+            ]
+          },
+          {
+            "group": "APIs List",
+            "pages": [
+              "api-reference/registrar_apis/list_domains",
+              "api-reference/registrar_apis/get_domain_details",
+              "api-reference/registrar_apis/check_domain",
+              "api-reference/registrar_apis/check_bulk_domains",
+              "api-reference/registrar_apis/register_domain",
+              "api-reference/registrar_apis/list_dns_records",
+              "api-reference/registrar_apis/create_dns_record",
+              "api-reference/registrar_apis/update_dns_record",
+              "api-reference/registrar_apis/delete_dns_record",
+              "api-reference/registrar_apis/get_nameservers",
+              "api-reference/registrar_apis/update_nameservers",
+              "api-reference/registrar_apis/toggle_privacy",
+              "api-reference/registrar_apis/toggle_auto_renew",
+              "api-reference/registrar_apis/list_url_forwards",
+              "api-reference/registrar_apis/create_url_forward",
+              "api-reference/registrar_apis/delete_url_forward",
+              "api-reference/registrar_apis/get_dnssec",
+              "api-reference/registrar_apis/enable_dnssec",
+              "api-reference/registrar_apis/disable_dnssec"
             ]
           }
         ]

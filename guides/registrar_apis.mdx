@@ -1,0 +1,104 @@
+---
+title: Integration Steps
+---
+
+<br />
+
+Atom Registrar API Documentation
+
+This document describes the REST API for domain registration, DNS management, and domain operations. The Registrar API provides comprehensive functionality for managing domains, DNS records, nameservers, privacy settings, auto-renewal, URL forwarding, and DNSSEC.
+
+## Authentication
+
+All API endpoints require Bearer token authentication. The Bearer token should be included in the Authorization header:
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+Obtain your Registrar API token from the dashboard at `/dashboard/seller/api-access` after requesting Registrar API access.
+
+## Base URLs
+
+- **Production**: `https://atom.com/api/registrar/v1`
+- **Development**: `http://local.sh.com:2080/api/registrar/v1`
+
+## API Overview
+
+The Registrar API includes the following main categories:
+
+### Domain Management
+- List all domains
+- Check domain availability (single and bulk)
+- Register new domains
+- Get domain details
+
+### DNS Management
+- List DNS records
+- Create, update, and delete DNS records
+- Filter DNS records by subdomain and type
+- Bulk update and delete DNS records
+
+### Nameserver Management
+- Get current nameservers
+- Update nameservers (Atom, Parking, or Custom)
+
+### Domain Settings
+- Toggle privacy protection
+- Toggle auto-renewal
+- Manage URL forwarding rules
+
+### DNSSEC
+- Get DNSSEC records
+- Enable/disable DNSSEC
+
+## Common Workflows
+
+### Registering a Domain
+
+1. **Check Availability**: Use `GET /domains/check/{domain_name}` or `POST /domains/check-bulk` to verify domain availability
+2. **Register Domain**: Use `POST /domains/register` to register the domain
+3. **Configure DNS**: Use DNS management endpoints to set up DNS records
+4. **Set Nameservers**: Use nameserver endpoints to configure nameservers
+
+### Managing DNS Records
+
+1. **List Records**: Use `GET /domains/{domain_name}/records` to view all DNS records
+2. **Create Record**: Use `POST /domains/{domain_name}/records` to add new records
+3. **Update Record**: Use `PUT /domains/{domain_name}/records/{record_id}` to modify existing records
+4. **Delete Record**: Use `DELETE /domains/{domain_name}/records/{record_id}` to remove records
+
+### Bulk Operations
+
+- Use `PUT /domains/{domain_name}/dns/bulk-update` to update multiple DNS records at once
+- Use `DELETE /domains/{domain_name}/dns/bulk-delete` to delete multiple DNS records matching criteria
+
+## Response Format
+
+All API responses follow a consistent format:
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Operation completed successfully"
+}
+```
+
+Error responses:
+
+```json
+{
+  "success": false,
+  "error": "Error Type",
+  "message": "Detailed error message"
+}
+```
+
+## Rate Limits
+
+Please refer to your API access dashboard for specific rate limit information.
+
+## Support
+
+For API support and questions, please contact the Atom team or refer to the individual endpoint documentation.
