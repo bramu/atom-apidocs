@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://atom.com/api",
+      "url": "https://www.atom.com/api",
       "description": "Production server"
     },
     {
