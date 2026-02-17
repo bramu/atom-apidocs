@@ -9,8 +9,8 @@
   },
   "favicon": "/logo/fav.png",
   "openapi": [
-    "api-reference/openapi.json",
-    "api-reference/registrar_apis/openapi.json"
+    "api-reference/registrar_apis/openapi.json",
+    "api-reference/openapi.json"
   ],
   "navigation": {
     "tabs": [

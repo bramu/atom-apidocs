@@ -7,22 +7,27 @@
   },
   "servers": [
     {
-      "url": "https://atom.com/api/registrar/v1",
+      "url": "https://atom.com/api",
       "description": "Production server"
     },
     {
-      "url": "https://dev.atom.com/api/registrar/v1",
+      "url": "https://dev.atom.com/api",
       "description": "Development server"
     }
   ],
+  "x-mint": {
+    "group": "Registrar APIs"
+  },
   "security": [
     {
       "BearerAuth": []
     }
   ],
   "paths": {
-    "/domains": {
+    "/registrar/v1/domains": {
       "get": {
+        "operationId": "listRegistrarDomains",
+        "tags": ["Registrar"],
         "summary": "List all domains",
         "description": "Get a paginated list of all domains owned by the authenticated user. Supports search, filtering by extension, and pagination.",
         "parameters": [
@@ -68,6 +73,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -88,7 +98,7 @@
         }
       }
     },
-    "/domains/check/{domain_name}": {
+    "/registrar/v1/domains/check/{domain_name}": {
       "get": {
         "summary": "Check domain availability",
         "description": "Check if a single domain name is available for registration. Returns cached results from database.",
@@ -127,7 +137,7 @@
         }
       }
     },
-    "/domains/check-bulk": {
+    "/registrar/v1/domains/check-bulk": {
       "post": {
         "summary": "Check multiple domains availability",
         "description": "Check availability for multiple domain names (max 50 domains per request). Returns cached results from database.",
@@ -164,7 +174,7 @@
         }
       }
     },
-    "/domains/register": {
+    "/registrar/v1/domains/register": {
       "post": {
         "summary": "Register a new domain",
         "description": "Register a new domain name using cart system. Performs non-cached availability check, processes payment (account balance or saved card), registers domain with 60-day transfer lock and parking nameservers. Each API request creates an isolated cart for the single requested domain.",
@@ -214,7 +224,7 @@
         }
       }
     },
-    "/domains/{domain_name}": {
+    "/registrar/v1/domains/{domain_name}": {
       "get": {
         "summary": "Get domain details",
         "description": "Get detailed information about a specific domain including status, expiry date, nameservers, DNSSEC status, and contact information.",
@@ -255,7 +265,7 @@
         }
       }
     },
-    "/domains/{domain_name}/records": {
+    "/registrar/v1/domains/{domain_name}/records": {
       "get": {
         "summary": "List DNS records",
         "description": "Get all active DNS records for a domain. Syncs with PowerDNS before returning results.",
@@ -348,7 +358,7 @@
         }
       }
     },
-    "/domains/{domain_name}/records/{record_id}": {
+    "/registrar/v1/domains/{domain_name}/records/{record_id}": {
       "put": {
         "summary": "Update DNS record",
         "description": "Update an existing DNS record. All fields are optional; only provided fields will be updated.",
@@ -462,7 +472,7 @@
         }
       }
     },
-    "/domains/{domain_name}/nameservers": {
+    "/registrar/v1/domains/{domain_name}/nameservers": {
       "get": {
         "summary": "Get domain nameservers",
         "description": "Get the current nameservers configured for a domain. Returns nameserver list and type (atom, parking, or custom).",
@@ -555,7 +565,7 @@
         }
       }
     },
-    "/domains/{domain_name}/privacy": {
+    "/registrar/v1/domains/{domain_name}/privacy": {
       "put": {
         "summary": "Toggle domain privacy protection",
         "description": "Enable or disable WHOIS privacy protection for a domain. May require contact verification via email.",
@@ -619,7 +629,7 @@
         }
       }
     },
-    "/domains/{domain_name}/auto-renew": {
+    "/registrar/v1/domains/{domain_name}/auto-renew": {
       "put": {
         "summary": "Toggle domain auto-renewal",
         "description": "Enable or disable automatic renewal for a domain before expiration.",
@@ -683,7 +693,7 @@
         }
       }
     },
-    "/domains/{domain_name}/url-forwards": {
+    "/registrar/v1/domains/{domain_name}/url-forwards": {
       "get": {
         "summary": "Get URL forwarding rules",
         "description": "Get all active URL forwarding rules configured for a domain.",
@@ -773,7 +783,7 @@
         }
       }
     },
-    "/domains/{domain_name}/url-forwards/{forward_id}": {
+    "/registrar/v1/domains/{domain_name}/url-forwards/{forward_id}": {
       "delete": {
         "summary": "Delete URL forward",
         "description": "Delete a specific URL forwarding rule by its ID.",
@@ -823,7 +833,7 @@
         }
       }
     },
-    "/domains/{domain_name}/dns/filter": {
+    "/registrar/v1/domains/{domain_name}/dns/filter": {
       "get": {
         "summary": "Filter DNS records",
         "description": "Filter DNS records by subdomain and/or record type. Useful for finding specific records.",
@@ -882,7 +892,7 @@
         }
       }
     },
-    "/domains/{domain_name}/dns/bulk-update": {
+    "/registrar/v1/domains/{domain_name}/dns/bulk-update": {
       "put": {
         "summary": "Bulk update DNS records",
         "description": "Update all DNS records matching specific subdomain and type criteria. Updates content and optionally TTL for all matching records.",
@@ -933,7 +943,7 @@
         }
       }
     },
-    "/domains/{domain_name}/dns/bulk-delete": {
+    "/registrar/v1/domains/{domain_name}/dns/bulk-delete": {
       "delete": {
         "summary": "Bulk delete DNS records",
         "description": "Delete all DNS records matching specific subdomain and type criteria. Type parameter is required.",
@@ -992,7 +1002,7 @@
         }
       }
     },
-    "/domains/{domain_name}/dnssec": {
+    "/registrar/v1/domains/{domain_name}/dnssec": {
       "get": {
         "summary": "Get DNSSEC records",
         "description": "Get DNSSEC DS records for a domain. Returns parsed records with algorithm and digest type names.",
@@ -1033,7 +1043,7 @@
         }
       }
     },
-    "/domains/{domain_name}/dnssec/enable": {
+    "/registrar/v1/domains/{domain_name}/dnssec/enable": {
       "post": {
         "summary": "Enable DNSSEC",
         "description": "Enable DNSSEC for a domain. Only available for domains using Atom or Parking nameservers.",
@@ -1077,7 +1087,7 @@
         }
       }
     },
-    "/domains/{domain_name}/dnssec/disable": {
+    "/registrar/v1/domains/{domain_name}/dnssec/disable": {
       "post": {
         "summary": "Disable DNSSEC",
         "description": "Disable DNSSEC for a domain. Required before changing nameservers.",
