@@ -289,7 +289,7 @@
       },
       "post": {
         "summary": "Create DNS record",
-        "description": "Create a new DNS record for the domain. Supports A, AAAA, CNAME, MX, TXT, SRV, CAA, and other standard record types.",
+        "description": "Create a new DNS record for the domain. Supports A, AAAA, CNAME, MX, TXT and other standard record types.",
         "parameters": [
           {
             "name": "domain_name",
