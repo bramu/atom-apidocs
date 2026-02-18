@@ -1568,7 +1568,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "NS"],
+            "enum": ["A", "AAAA", "CNAME", "MX", "TXT"],
             "example": "A"
           },
           "name": {
@@ -1591,39 +1591,7 @@
           },
           "priority": {
             "type": "integer",
-            "description": "Priority for MX and SRV records"
-          },
-          "weight": {
-            "type": "integer",
-            "description": "Weight for SRV records"
-          },
-          "port": {
-            "type": "integer",
-            "description": "Port for SRV records"
-          },
-          "target": {
-            "type": "string",
-            "description": "Target for SRV records"
-          },
-          "service": {
-            "type": "string",
-            "description": "Service name for SRV records (e.g., '_http')"
-          },
-          "protocol": {
-            "type": "string",
-            "description": "Protocol for SRV records (e.g., '_tcp')"
-          },
-          "flags": {
-            "type": "integer",
-            "description": "Flags for CAA records"
-          },
-          "tag": {
-            "type": "string",
-            "description": "Tag for CAA records (e.g., 'issue')"
-          },
-          "value": {
-            "type": "string",
-            "description": "Value for CAA records"
+            "description": "Priority for MX records"
           }
         }
       },
@@ -1651,30 +1619,6 @@
           },
           "priority": {
             "type": "integer"
-          },
-          "weight": {
-            "type": "integer"
-          },
-          "port": {
-            "type": "integer"
-          },
-          "target": {
-            "type": "string"
-          },
-          "service": {
-            "type": "string"
-          },
-          "protocol": {
-            "type": "string"
-          },
-          "flags": {
-            "type": "integer"
-          },
-          "tag": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
           }
         }
       },
