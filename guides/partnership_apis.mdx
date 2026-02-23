@@ -1,5 +1,5 @@
 ---
-title: Integration Steps
+title: Partnership API Guide
 ---
 
 <br />
@@ -8,42 +8,62 @@ title: Integration Steps
 
 <br />
 
-Atom Partnership APIs Documentation
+## Overview
 
-This document describes the API sequence between a Partner system and Atom for managing domain lifecycle operations. It includes searching, retrieving, holding, unholding, confirming, and transferring domain names.
+The Partnership APIs allow you to integrate Atom's premium domain marketplace into your platform. Your users can discover domains using AI-powered search, browse curated inventory, place holds, and complete purchases — all through a seamless API-driven workflow.
 
-1. Domain Search Request  
-Endpoint: `POST /api/domain/search`  
-Description: The Partner sends a request to Atom to search for available domains based on keywords or filters.
+## Integration Workflow
 
-2. Get Domain Details  
-Endpoint: `GET /api/domain/{domainName}`  
-Description: Fetches detailed information about a specific domain.
+### 1. Discover Domains
 
-3. Hold Domain  
-Endpoint: `POST /api/domain/hold`  
-Description: Temporarily holds a domain to prevent others from purchasing it.
+<CardGroup cols={2}>
+  <Card title="Semantic Search" icon="magnifying-glass">
+    Find relevant domains using natural language queries like "names for a healthcare startup" or "short brandable tech names." Returns the most relevant matches from Atom's marketplace.
+  </Card>
+  <Card title="Domain Search" icon="list">
+    Browse available domains by keyword, category, or price range. Ideal for building filtered search experiences and catalog pages.
+  </Card>
+</CardGroup>
 
-4. Unhold Domain  
-Endpoint: `POST /api/domain/unhold`  
-Description: Releases a previously held domain back to active status.
+**Endpoint:** `GET /api/marketplace/semantic-search` or `GET /api/marketplace/partnership-search`
 
-5. Confirm Order (Purchase Domain)  
-Endpoint: `POST /api/domain/confirm-order`  
-Description: Finalizes the domain purchase after it is held.
+### 2. Get Domain Details
 
-6. Get Transfer Auth Code  
-Endpoint: `GET /api/domain/{domainName}/authcode`  
-Description: Retrieves the transfer authorization code for a purchased domain.
+Retrieve detailed information about a specific domain, including pricing, category, and availability status.
 
-Sequence Summary
+**Endpoint:** `GET /api/marketplace/domain-data`
 
-| Step | Action               | Request From | Response From | Description                       |
-| ---- | -------------------- | ------------ | ------------- | --------------------------------- |
-| 1    | Domain Search        | Partner      | Atom          | Returns list of domains           |
-| 2    | Get Domain Details   | Partner      | Atom          | Returns domain info               |
-| 3    | Hold Domain          | Partner      | Atom          | Locks domain temporarily          |
-| 4    | Unhold Domain        | Partner      | Atom          | Releases domain hold              |
-| 5    | Confirm Order        | Partner      | Atom          | Marks domain as purchased         |
-| 6    | Get Transfer Auth Code | Partner    | Atom          | Returns transfer code or pending message |
+### 3. Hold Domain
 
+Temporarily reserve a domain for your customer to prevent it from being purchased by someone else. Holds give your buyer time to complete their decision and payment.
+
+**Endpoint:** `POST /api/marketplace/hold-domain`
+
+### 4. Unhold Domain
+
+Release a previously reserved domain if the customer decides not to proceed.
+
+**Endpoint:** `POST /api/marketplace/unhold-domain`
+
+### 5. Confirm Order
+
+Finalize the purchase of a held domain. This completes the transaction and initiates the domain transfer process.
+
+**Endpoint:** `POST /api/marketplace/confirm-order`
+
+### 6. Get Transfer Auth Code
+
+After a purchase is confirmed, retrieve the authorization code needed to transfer the domain to the buyer's registrar.
+
+**Endpoint:** `POST /api/marketplace/get-transfer-auth-code`
+
+## Quick Reference
+
+| Step | Action | Description |
+| ---- | ------ | ----------- |
+| 1 | Discover Domains | Search using AI semantic search or browse by keyword/category |
+| 2 | Get Domain Details | Retrieve pricing, category, and availability for a domain |
+| 3 | Hold Domain | Reserve a domain temporarily for your customer |
+| 4 | Unhold Domain | Release the hold if the customer decides not to buy |
+| 5 | Confirm Order | Complete the purchase |
+| 6 | Get Transfer Auth Code | Retrieve the authorization code for domain transfer |

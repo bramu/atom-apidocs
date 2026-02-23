@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Atom API Reference",
-    "description": "Do you want to earn online by suggesting business names? Earn online by brand, business name , tagline ideas Ssuggestions in Squad Help now!",
+    "description": "Comprehensive APIs for domain discovery, marketplace integration, portfolio management, registration, and AI-powered domain intelligence.",
     "license": {
       "name": "MIT"
     },
@@ -21,12 +21,12 @@
   "paths": {
     "/domains": {
       "get": {
-        "description": "GetDomainList (Premium, Standard, Geo, All)",
+        "description": "Retrieve your domain portfolio listings. Filter by listing type (Premium, Standard, or Geo) and paginate through results.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your Seller API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -35,7 +35,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -44,7 +44,7 @@
           {
             "name": "type",
             "in": "query",
-            "description": "Domain Type (standard, premium or geo)",
+            "description": "Filter by listing type (standard, premium, or geo)",
             "required": false,
             "schema": {
               "type": "string",
@@ -91,12 +91,12 @@
     },
     "/domain/search": {
       "get": {
-        "description": "Search Domains based on the keyword or category",
+        "description": "Search your domain portfolio by keyword, category, or name type. Use this to find specific domains within your listings.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -105,7 +105,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -158,12 +158,12 @@
     },
     "/categories": {
       "get": {
-        "description": "List the categories for domains",
+        "description": "Retrieve the list of available categories for organizing your domain listings.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -172,7 +172,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -198,12 +198,12 @@
     },
     "/domain-details": {
       "get": {
-        "description": "Get details for a specific domain listing",
+        "description": "Retrieve detailed information for a specific domain in your portfolio, including pricing, category, and listing status.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -212,7 +212,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -252,7 +252,7 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -261,7 +261,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -322,7 +322,7 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -331,7 +331,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -371,7 +371,7 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -380,7 +380,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -426,12 +426,12 @@
     },
     "/primary-categories": {
       "get": {
-        "description": "Primary categories (industry) list",
+        "description": "Retrieve the list of primary industry categories available for domain classification.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -440,7 +440,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -466,12 +466,12 @@
     },
     "/assign-primary-category": {
       "get": {
-        "description": "GetDomainList (Premium, Standard, Geo, All)1",
+        "description": "Assign an industry category to a domain listing. This helps buyers find your domain when browsing by industry.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -480,7 +480,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -525,12 +525,12 @@
     },
     "/update-description": {
       "post": {
-        "description": "Add or update a description for Domain",
+        "description": "Add or update a marketing description for your domain listing. A compelling description helps attract buyers.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -539,7 +539,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -557,7 +557,7 @@
           {
             "name": "domain_description",
             "in": "query",
-            "description": "Category Description",
+            "description": "Domain description text",
             "required": true,
             "schema": {
               "type": "string",
@@ -584,12 +584,12 @@
     },
     "/all-sales": {
       "get": {
-        "description": "Get a list of all your domain sales on Atom platform",
+        "description": "Retrieve your complete sales history on Atom, including domain names, sale prices, and transaction dates.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -598,7 +598,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -654,12 +654,12 @@
     },
     "/syndication-authorized-domains": {
       "get": {
-        "description": "Get a list of domains authorized for listing on external platforms",
+        "description": "Retrieve domains from your portfolio that are authorized for syndication and listing on external marketplaces and partner platforms.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -668,7 +668,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -719,7 +719,7 @@
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -728,7 +728,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -784,12 +784,12 @@
     },
     "/domain-analytics": {
       "get": {
-        "description": "Get analytics related to your domains (e.g. Views and Shortlists)",
+        "description": "Retrieve performance analytics for your domain listings, including page views, shortlists, and engagement metrics.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -798,7 +798,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -834,12 +834,12 @@
     },
     "/add-discount": {
       "get": {
-        "description": "Get analytics related to your domains (e.g. Views and Shortlists)",
+        "description": "Apply a discount to a domain listing to attract more buyers. Set a percentage discount that will be displayed on the domain's sale page.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -848,7 +848,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -894,12 +894,12 @@
     },
     "/verify-dns": {
       "get": {
-        "description": "Verify DNS of the given domain",
+        "description": "Verify that DNS records are correctly configured for a domain in your portfolio.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -908,7 +908,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -944,12 +944,12 @@
     },
     "/upload-grade-domains": {
       "post": {
-        "description": "Upload Domains For Grading",
+        "description": "Submit a batch of domains for AI-powered quality grading. Get brand-fit scores and quality assessments to help decide which domains to list.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -958,7 +958,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -994,12 +994,12 @@
     },
     "/get-grade-domain-result": {
       "get": {
-        "description": "Grade Domains Result",
+        "description": "Retrieve the results of a previously submitted domain grading batch, including quality scores and brand-fit assessments.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1008,7 +1008,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1064,12 +1064,12 @@
     },
     "/smart-domain-search": {
       "get": {
-        "description": "Smart Domain Search",
+        "description": "Find domain names by describing your business or brand concept. For example, search for 'beauty brand' or 'fintech startup' to discover relevant available domains.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1078,7 +1078,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1113,12 +1113,12 @@
     },
     "/trademark-search": {
       "get": {
-        "description": "Search for trademarks in the USPTO database based on keyword and various filters. Requires dedicated Trademark API token.",
+        "description": "Search the USPTO trademark database to check for potential conflicts before registering or purchasing a domain name. Filter by filing status, international class, and more.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "Trademark API token (dedicated for trademark functionality)",
+            "description": "Your Trademark API key",
             "required": true,
             "schema": {
               "type": "string",
@@ -1128,7 +1128,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1204,12 +1204,12 @@
     },
     "/partnership-search": {
       "get": {
-        "description": "Get Available Domains which are Approved status",
+        "description": "Browse and search available domains in the Atom marketplace. Filter by keyword, paginate through results, and discover premium domain names ready for purchase.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1218,7 +1218,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1227,7 +1227,7 @@
           {
             "name": "query",
             "in": "query",
-            "description": "Search Query to Pass",
+            "description": "Search keyword or phrase to filter domains",
             "required": false,
             "schema": {
               "type": "string",
@@ -1272,12 +1272,12 @@
     },
     "/domain-data": {
       "get": {
-        "description": "Get Domain Details with the Domain Name",
+        "description": "Retrieve detailed information about a specific domain, including pricing, category, availability status, and listing details.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1286,7 +1286,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1295,7 +1295,7 @@
           {
             "name": "domain_name",
             "in": "query",
-            "description": "Domain Name or Domain ID",
+            "description": "Domain name (e.g., example.com) or domain ID",
             "required": true,
             "schema": {
               "type": "string"
@@ -1321,12 +1321,12 @@
     },
     "/hold-domain": {
       "post": {
-        "description": "Hold Domain Request",
+        "description": "Temporarily reserve a domain to prevent it from being purchased by another buyer. This gives your customer time to complete their decision and payment.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1335,7 +1335,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1344,7 +1344,7 @@
           {
             "name": "domain_id",
             "in": "query",
-            "description": "Domain ID to pass",
+            "description": "The domain's unique identifier",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1370,12 +1370,12 @@
     },
     "/confirm-order": {
       "post": {
-        "description": "Confirm Order on the Hold Domains",
+        "description": "Finalize the purchase of a held domain. This completes the transaction and initiates the domain transfer process to the buyer.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1384,7 +1384,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1393,7 +1393,7 @@
           {
             "name": "domain_id",
             "in": "query",
-            "description": "Domain ID to pass",
+            "description": "The domain's unique identifier",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1402,7 +1402,7 @@
           {
             "name": "payment_amount",
             "in": "query",
-            "description": "Custom Amount other than selling_price",
+            "description": "Custom payment amount if different from the listed selling price",
             "required": false,
             "schema": {
               "type": "integer",
@@ -1429,12 +1429,12 @@
     },
     "/unhold-domain": {
       "post": {
-        "description": "UnHold Domain Request",
+        "description": "Release a previously reserved domain back to the marketplace. Use this if the customer decides not to proceed with the purchase.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1443,7 +1443,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1452,7 +1452,7 @@
           {
             "name": "domain_id",
             "in": "query",
-            "description": "Domain ID to pass",
+            "description": "The domain's unique identifier",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1478,12 +1478,12 @@
     },
     "/get-transfer-auth-code": {
       "post": {
-        "description": "Get Transfer Auth Code",
+        "description": "Retrieve the authorization code needed to transfer a purchased domain to the buyer's registrar of choice.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1492,7 +1492,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1501,7 +1501,7 @@
           {
             "name": "domain_id",
             "in": "query",
-            "description": "Domain ID to pass",
+            "description": "The domain's unique identifier",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1527,12 +1527,12 @@
     },
     "/domain-appraisal": {
       "get": {
-        "description": "Get an AI-powered appraisal for a domain including estimated price, domain score, key signals, and root words. Accepts either dedicated Appraisal API token OR Seller API token with atom_seller=1 permission.",
+        "description": "Get an AI-powered appraisal for any domain name. Returns an estimated market value, domain quality score, key signals (length, brandability, extension), and root word analysis.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key (Appraisal API token OR Seller API token with atom_seller=1 permission)",
+            "description": "Your Appraisal API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1541,7 +1541,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1576,12 +1576,12 @@
     },
     "/semantic-search": {
       "get": {
-        "description": "Search for domain names using AI-powered semantic search with embeddings and Pinecone. This API creates embeddings for natural language queries and finds semantically similar domains.",
+        "description": "Discover domains using natural language queries. Describe what you're looking for — such as 'names for a healthcare startup' or 'short brandable tech names' — and get back the most relevant matches from Atom's marketplace using advanced AI-powered semantic search.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1590,7 +1590,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1649,12 +1649,12 @@
     },
     "/new-listings": {
       "get": {
-        "description": "Get domains that were approved on a specific date. Returns domains with status ‘Approved’ or ‘Seller Approved’ (with dns_checked != 0) where approved_date matches the specified date.",
+        "description": "Retrieve domains that were newly listed on the Atom marketplace on a specific date. Use this to stay up to date with fresh inventory and highlight new arrivals.",
         "parameters": [
           {
             "name": "api_token",
             "in": "query",
-            "description": "API Key to get the details.",
+            "description": "Your API key",
             "required": true,
             "schema": {
               "type": "string"
@@ -1663,7 +1663,7 @@
           {
             "name": "user_id",
             "in": "query",
-            "description": "UserId of the API Token.",
+            "description": "Your Atom user ID",
             "required": true,
             "schema": {
               "type": "integer"
@@ -1681,7 +1681,7 @@
           {
             "name": "listing_type",
             "in": "query",
-            "description": "Filter by listing type. ‘Curated’ returns only Approved status domains. ‘All’ returns both Approved and Seller Approved domains. Default value: All",
+            "description": "Filter by listing type. ‘Curated’ returns only Atom-curated premium domains. ‘All’ returns all newly listed domains. Default: All",
             "schema": {
               "type": "string"
             }
