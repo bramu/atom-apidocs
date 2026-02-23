@@ -35,7 +35,7 @@ Retrieve detailed information about a specific domain, including pricing, catego
 
 ### 3. Hold Domain
 
-Temporarily reserve a domain for your customer to prevent it from being purchased by someone else. Holds give your buyer time to complete their decision and payment.
+Reserve a domain when a customer adds it to their cart or while you verify payment. The hold prevents the domain from being purchased by another buyer while you process the transaction.
 
 **Endpoint:** `POST /api/marketplace/hold-domain`
 
@@ -47,7 +47,7 @@ Release a previously reserved domain if the customer decides not to proceed.
 
 ### 5. Confirm Order
 
-Finalize the purchase of a held domain. This completes the transaction and initiates the domain transfer process.
+Confirm the purchase once payment has been collected and funds are verified. This finalizes the transaction and secures the transfer authorization code for your buyer.
 
 **Endpoint:** `POST /api/marketplace/confirm-order`
 
@@ -63,7 +63,7 @@ After a purchase is confirmed, retrieve the authorization code needed to transfe
 | ---- | ------ | ----------- |
 | 1 | Discover Domains | Search using AI semantic search or browse by keyword/category |
 | 2 | Get Domain Details | Retrieve pricing, category, and availability for a domain |
-| 3 | Hold Domain | Reserve a domain temporarily for your customer |
+| 3 | Hold Domain | Reserve a domain when added to cart or while verifying payment |
 | 4 | Unhold Domain | Release the hold if the customer decides not to buy |
-| 5 | Confirm Order | Complete the purchase |
+| 5 | Confirm Order | Finalize once funds are verified; secures the auth code for your buyer |
 | 6 | Get Transfer Auth Code | Retrieve the authorization code for domain transfer |
