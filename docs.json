@@ -108,14 +108,8 @@
         ]
       },
       {
-        "tab": "Other APIs",
+        "tab": "Intelligence APIs",
         "groups": [
-          {
-            "group": "Smart Search API's",
-            "pages": [
-              "api-reference/smart_search_apis/smart_domain_search"
-            ]
-          },
           {
             "group": "Domain Appraisal API's",
             "pages": [
