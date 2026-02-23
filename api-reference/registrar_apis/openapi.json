@@ -83,7 +83,7 @@
     "/registrar/v1/domains/check/{domain_name}": {
       "get": {
         "summary": "Check domain availability",
-        "description": "Check if a single domain name is available for registration. Returns cached results from database.",
+        "description": "Check if a single domain name is available for registration. Some results may be cached.",
         "parameters": [
           {
             "name": "domain_name",
@@ -122,7 +122,7 @@
     "/registrar/v1/domains/check-bulk": {
       "post": {
         "summary": "Check multiple domains availability",
-        "description": "Check availability for multiple domain names (max 50 domains per request). Returns cached results from database.",
+        "description": "Check availability for multiple domain names (max 50 domains per request). Some results may be cached.",
         "requestBody": {
           "required": true,
           "content": {
@@ -159,7 +159,7 @@
     "/registrar/v1/domains/register": {
       "post": {
         "summary": "Register a new domain",
-        "description": "Register a new domain name using cart system. Performs non-cached availability check, processes payment (account balance or saved card), registers domain with 60-day transfer lock and parking nameservers. Each API request creates an isolated cart for the single requested domain.",
+        "description": "Register a new domain name. Performs a real-time availability check, processes payment (account balance or saved card), and registers the domain with a 60-day transfer lock and parking nameservers.",
         "requestBody": {
           "required": true,
           "content": {
