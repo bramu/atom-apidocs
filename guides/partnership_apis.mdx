@@ -57,6 +57,18 @@ After a purchase is confirmed, retrieve the authorization code needed to transfe
 
 **Endpoint:** `POST /api/marketplace/get-transfer-auth-code`
 
+### 7. List Orders
+
+Retrieve a paginated list of all partnership orders, including key details such as order status, total price, and created date. Use this endpoint to power order history views or internal reconciliation tools.
+
+**Endpoint:** `GET /api/marketplace/orders`
+
+### 8. Get Order Details
+
+Retrieve full details for a specific order, including purchased domain, buyer information as provided, pricing, payment status, and transfer information.
+
+**Endpoint:** `GET /api/marketplace/order-details`
+
 ## Quick Reference
 
 | Step | Action | Description |
@@ -67,3 +79,5 @@ After a purchase is confirmed, retrieve the authorization code needed to transfe
 | 4 | Unhold Domain | Release the hold if the customer decides not to buy |
 | 5 | Confirm Order | Finalize once funds are verified; secures the auth code for your buyer |
 | 6 | Get Transfer Auth Code | Retrieve the authorization code for domain transfer |
+| 7 | List Orders | Get a paginated list of all partnership orders |
+| 8 | Get Order Details | Retrieve full details for a specific order |

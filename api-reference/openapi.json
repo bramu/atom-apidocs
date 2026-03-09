@@ -1703,6 +1703,95 @@
           }
         }
       }
+    },
+    "/orders": {
+      "get": {
+        "description": "Retrieve list of all partnership orders, including key details such as order status, total price, and created date. Use this endpoint to power order history views or internal reconciliation tools.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "Your API key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Your Atom user ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order-details": {
+      "get": {
+        "description": "Retrieve list of all partnership orders, including key details such as order status, total price, and created date. Use this endpoint to power order history views or internal reconciliation tools.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "Your API key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Your Atom user ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order_id",
+            "in": "query",
+            "description": "The order's unique identifier",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Domain"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
