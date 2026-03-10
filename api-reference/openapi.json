@@ -1725,6 +1725,15 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Optional filter to return only orders for a specific domain (e.g., example.com)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
