@@ -56,27 +56,58 @@
             ]
           },
           {
-            "group": "APIs List",
+            "group": "Domains",
             "pages": [
               "api-reference/registrar_apis/list_domains",
               "api-reference/registrar_apis/get_domain_details",
               "api-reference/registrar_apis/check_domain",
               "api-reference/registrar_apis/check_bulk_domains",
-              "api-reference/registrar_apis/register_domain",
+              "api-reference/registrar_apis/register_domain"
+            ]
+          },
+          {
+            "group": "DNS Management",
+            "pages": [
               "api-reference/registrar_apis/list_dns_records",
               "api-reference/registrar_apis/create_dns_record",
               "api-reference/registrar_apis/update_dns_record",
               "api-reference/registrar_apis/delete_dns_record",
+              "api-reference/registrar_apis/filter_dns_records",
+              "api-reference/registrar_apis/bulk_update_dns",
+              "api-reference/registrar_apis/bulk_delete_dns"
+            ]
+          },
+          {
+            "group": "Nameservers & Settings",
+            "pages": [
               "api-reference/registrar_apis/get_nameservers",
               "api-reference/registrar_apis/update_nameservers",
               "api-reference/registrar_apis/toggle_privacy",
-              "api-reference/registrar_apis/toggle_auto_renew",
+              "api-reference/registrar_apis/toggle_auto_renew"
+            ]
+          },
+          {
+            "group": "URL Forwarding",
+            "pages": [
               "api-reference/registrar_apis/list_url_forwards",
               "api-reference/registrar_apis/create_url_forward",
-              "api-reference/registrar_apis/delete_url_forward",
+              "api-reference/registrar_apis/delete_url_forward"
+            ]
+          },
+          {
+            "group": "DNSSEC",
+            "pages": [
               "api-reference/registrar_apis/get_dnssec",
               "api-reference/registrar_apis/enable_dnssec",
               "api-reference/registrar_apis/disable_dnssec"
+            ]
+          },
+          {
+            "group": "Contacts",
+            "pages": [
+              "api-reference/registrar_apis/list_contacts",
+              "api-reference/registrar_apis/create_contact",
+              "api-reference/registrar_apis/update_contact"
             ]
           }
         ]

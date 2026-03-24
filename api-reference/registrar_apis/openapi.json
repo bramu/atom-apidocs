@@ -1109,6 +1109,247 @@
           }
         }
       }
+    },
+    "/registrar/v1/contacts": {
+      "get": {
+        "operationId": "listContacts",
+        "tags": ["Contacts"],
+        "summary": "List contacts",
+        "description": "Returns all contact handles associated with the authenticated user — the primary registrant contact (RegistrantUser) plus any additional contact handles.",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/ContactObject" }
+                    },
+                    "total": { "type": "integer", "example": 2 }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      },
+      "post": {
+        "operationId": "createContact",
+        "tags": ["Contacts"],
+        "summary": "Create a contact",
+        "description": "Creates a new registrar contact handle. If no primary registrant contact (RegistrantUser) exists for the account, this request creates one. Subsequent calls create additional contact handles. The contact is also registered with the upstream registrar (RealtimeRegister).",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ContactInput" },
+              "examples": {
+                "individual": {
+                  "summary": "Individual contact",
+                  "value": {
+                    "name": "Jane Doe",
+                    "email": "jane@example.com",
+                    "phone": "+1.2025551234",
+                    "address": "123 Main St",
+                    "city": "Chicago",
+                    "state": "IL",
+                    "zip": "60601",
+                    "country": "US"
+                  }
+                },
+                "business": {
+                  "summary": "Business contact with label",
+                  "value": {
+                    "first_name": "Jane",
+                    "last_name": "Doe",
+                    "email": "jane@acme.com",
+                    "phone": "+1.2025551234",
+                    "organization": "Acme Corp",
+                    "address": ["123 Main St", "Suite 400"],
+                    "city": "Chicago",
+                    "state": "IL",
+                    "zip": "60601",
+                    "country": "US",
+                    "label": "Acme Legal",
+                    "disclosed_fields": ["name", "email"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contact created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Contact created successfully" },
+                    "data": { "$ref": "#/components/schemas/ContactObject" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "409": {
+            "description": "Conflict — a contact with the same label already exists",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Registrar rejected the contact — see `violations` for field-level errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "error": { "type": "string", "example": "Registrar Error" },
+                    "message": { "type": "string", "example": "Failed to create contact" },
+                    "violations": {
+                      "type": "array",
+                      "items": { "type": "object" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/registrar/v1/contacts/{handle}": {
+      "put": {
+        "operationId": "updateContact",
+        "tags": ["Contacts"],
+        "summary": "Update a contact",
+        "description": "Updates an existing contact handle. Only the fields provided in the request body are changed — omitted fields keep their current values. If the registrar requires email verification for the change (e.g. email address updates), a 202 response is returned and the update is applied once the user approves the verification email.",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "handle",
+            "in": "path",
+            "required": true,
+            "description": "The registrar contact handle to update (e.g. `ATOM-12345` or `CONTACT_1-67890`)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "All fields are optional — only provide the fields you want to change.",
+                "properties": {
+                  "name": { "type": "string", "example": "Jane Smith" },
+                  "first_name": { "type": "string", "example": "Jane" },
+                  "last_name": { "type": "string", "example": "Smith" },
+                  "email": { "type": "string", "format": "email", "example": "jane.smith@example.com" },
+                  "phone": { "type": "string", "example": "+1.2025559876" },
+                  "fax": { "type": "string", "example": null },
+                  "organization": { "type": "string", "example": "Acme Corp" },
+                  "address": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "array", "items": { "type": "string" } }
+                    ],
+                    "example": ["456 Oak Ave", "Floor 2"]
+                  },
+                  "city": { "type": "string", "example": "Austin" },
+                  "state": { "type": "string", "example": "TX" },
+                  "zip": { "type": "string", "example": "78701" },
+                  "country": { "type": "string", "example": "US" },
+                  "label": { "type": "string", "example": "Updated Label" },
+                  "disclosed_fields": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "example": ["name"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contact updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Contact updated successfully" },
+                    "data": { "$ref": "#/components/schemas/ContactObject" }
+                  }
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted — verification email sent. The contact will be updated once the user approves via email.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Verification email sent. Please approve the contact update via email to complete the change." },
+                    "verification_required": { "type": "boolean", "example": true },
+                    "data": { "$ref": "#/components/schemas/ContactObject" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "409": {
+            "description": "Conflict — label already used by another contact",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Registrar rejected the update — see `violations` for field-level errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "error": { "type": "string", "example": "Registrar Error" },
+                    "message": { "type": "string" },
+                    "violations": { "type": "array", "items": { "type": "object" } }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
     }
   },
   "components": {
@@ -2053,6 +2294,167 @@
                 "example": true
               }
             }
+          }
+        }
+      },
+      "ContactObject": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "type": "string",
+            "description": "Unique registrar contact handle",
+            "example": "ATOM-12345"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["registrant_user", "contact_handle"],
+            "description": "Whether this is the primary registrant contact or an additional handle",
+            "example": "registrant_user"
+          },
+          "label": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional human-readable label for the contact",
+            "example": "My Business Contact"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jane Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jane@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1.2025551234"
+          },
+          "fax": {
+            "type": "string",
+            "nullable": true,
+            "example": null
+          },
+          "organization": {
+            "type": "string",
+            "nullable": true,
+            "example": "Acme Corp"
+          },
+          "address": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["123 Main St", "Suite 400"]
+          },
+          "city": {
+            "type": "string",
+            "example": "Chicago"
+          },
+          "state": {
+            "type": "string",
+            "nullable": true,
+            "example": "IL"
+          },
+          "zip": {
+            "type": "string",
+            "example": "60601"
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code",
+            "example": "US"
+          },
+          "disclosed_fields": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "WHOIS fields disclosed publicly",
+            "example": ["name", "email"]
+          },
+          "verified": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "ContactInput": {
+        "type": "object",
+        "required": ["email", "phone", "address", "city", "zip", "country"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name. Use either `name` or `first_name` + `last_name`.",
+            "example": "Jane Doe"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name (alternative to `name`)",
+            "example": "Jane"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name (used with `first_name`)",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jane@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+1.2025551234"
+          },
+          "fax": {
+            "type": "string",
+            "example": "+1.2025559999"
+          },
+          "organization": {
+            "type": "string",
+            "example": "Acme Corp"
+          },
+          "address": {
+            "description": "Street address as a string or array of lines.",
+            "oneOf": [
+              { "type": "string", "example": "123 Main St" },
+              { "type": "array", "items": { "type": "string" }, "example": ["123 Main St", "Suite 400"] }
+            ]
+          },
+          "address_1": {
+            "type": "string",
+            "description": "Address line 1 (alternative to `address`)",
+            "example": "123 Main St"
+          },
+          "address_2": {
+            "type": "string",
+            "description": "Address line 2 (used with `address_1`)",
+            "example": "Suite 400"
+          },
+          "city": {
+            "type": "string",
+            "example": "Chicago"
+          },
+          "state": {
+            "type": "string",
+            "example": "IL"
+          },
+          "zip": {
+            "type": "string",
+            "example": "60601"
+          },
+          "country": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 country code (uppercase)",
+            "example": "US"
+          },
+          "label": {
+            "type": "string",
+            "description": "Optional unique label to identify this contact",
+            "example": "My Business Contact"
+          },
+          "disclosed_fields": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "WHOIS fields to disclose publicly",
+            "example": ["name", "email"]
           }
         }
       },
