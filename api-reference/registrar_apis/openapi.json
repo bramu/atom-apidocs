@@ -803,6 +803,72 @@
         }
       }
     },
+    "/registrar/v1/domains/{domain_name}/contacts": {
+      "put": {
+        "operationId": "updateDomainContacts",
+        "tags": ["Contacts"],
+        "summary": "Update domain contact handles",
+        "description": "Assign contact handles to one or more roles on a domain — `registrant`, `admin`, `billing`, and/or `tech`. At least one role must be supplied; roles that are omitted remain unchanged.\n\nIf the registrar requires email verification (e.g. registrant change), a **202** is returned and the update is applied once the verification email is approved.\n\nThe domain must have `domain_contact_management` enabled (active, non-locked domain with Atom nameservers).",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "domain_name",
+            "in": "path",
+            "required": true,
+            "description": "Domain name (e.g. `example.com`)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDomainContactsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contacts updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateDomainContactsResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted — verification email sent. The update is applied once the user approves via email.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Domain contact update initiated. Please verify the update via the email sent to your registered email address." },
+                    "verification_required": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "domain_name": { "type": "string", "example": "example.com" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
     "/registrar/v1/domains/{domain_name}/url-forwards": {
       "get": {
         "summary": "Get URL forwarding rules",
@@ -1155,26 +1221,39 @@
     },
     "/registrar/v1/domains/{domain_name}/dnssec/enable": {
       "post": {
+        "operationId": "enableDnssec",
+        "tags": ["DNS Management"],
         "summary": "Enable DNSSEC",
-        "description": "Enable DNSSEC for a domain. Only available for domains using Atom or Parking nameservers.",
+        "description": "Enable DNSSEC for a domain.\n\n## Nameserver behavior\n\n| Nameserver type | Key fields (`flags`, `algorithm`, `protocol`, `public_key`) |\n|---|---|\n| **Atom / Parking nameservers** | **Ignored.** DNSSEC is fully auto-managed: Atom generates and rotates keys automatically. You do not need to supply any key fields — if you do, they are silently discarded. |\n| **Custom nameservers** | **Required.** All four fields must be provided. The supplied key is pushed directly to the upstream registrar. |\n\n> **Note:** If your domain uses Atom or Parking nameservers (e.g. `ns1.atom.com`, `ns1.squadhelp.com`, `ns1.atomregistrar.com`), the algorithm, protocol, flags, and public key in the request body have **no effect**. DNSSEC is automatically applied and managed by Atom.",
+        "security": [{ "BearerAuth": [] }],
         "parameters": [
           {
             "name": "domain_name",
             "in": "path",
-            "description": "Domain name (e.g., 'example.com')",
+            "description": "Domain name (e.g. `example.com`)",
             "required": true,
             "schema": {
               "type": "string"
             }
           }
         ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnableDnssecRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "DNSSEC enabled successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DnssecToggleResponse"
+                  "$ref": "#/components/schemas/EnableDnssecResponse"
                 }
               }
             }
@@ -1673,6 +1752,157 @@
                       "type": "string",
                       "description": "Error message if status is error or invalid"
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UpdateDomainContactsRequest": {
+        "type": "object",
+        "description": "At least one of `registrant`, `admin`, `billing`, or `tech` must be provided. Omitted roles are left unchanged.",
+        "minProperties": 1,
+        "properties": {
+          "registrant": {
+            "type": "string",
+            "example": "ATOM-12345",
+            "description": "Contact handle to set as the registrant. Must belong to the authenticated user."
+          },
+          "admin": {
+            "type": "string",
+            "example": "CONTACT_1-67890",
+            "description": "Contact handle to set as the administrative contact."
+          },
+          "billing": {
+            "type": "string",
+            "example": "CONTACT_2-67890",
+            "description": "Contact handle to set as the billing contact."
+          },
+          "tech": {
+            "type": "string",
+            "example": "CONTACT_3-67890",
+            "description": "Contact handle to set as the technical contact."
+          }
+        }
+      },
+      "UpdateDomainContactsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string", "example": "Domain contacts updated successfully" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": { "type": "string", "example": "example.com" },
+              "registrant_handle": { "type": "string", "example": "ATOM-12345" },
+              "admin_handle": { "type": "string", "example": "CONTACT_1-67890", "nullable": true },
+              "billing_handle": { "type": "string", "example": "CONTACT_2-67890", "nullable": true },
+              "tech_handle": { "type": "string", "example": "CONTACT_3-67890", "nullable": true }
+            }
+          }
+        }
+      },
+      "EnableDnssecRequest": {
+        "type": "object",
+        "description": "DNSSEC key fields for enabling DNSSEC.\n\n**Atom / Parking nameservers:** All fields are optional and will be ignored — DNSSEC is auto-managed.\n\n**Custom nameservers:** `flags`, `algorithm`, `protocol`, and `public_key` are required. `digest_type` is optional (defaults to `2` / SHA-256).",
+        "properties": {
+          "flags": {
+            "type": "integer",
+            "description": "DNSKEY flags. `256` = ZSK (Zone Signing Key), `257` = KSK (Key Signing Key). **Ignored for Atom/Parking nameservers.**",
+            "enum": [256, 257],
+            "example": 256
+          },
+          "algorithm": {
+            "type": "integer",
+            "description": "DNSKEY algorithm number. **Ignored for Atom/Parking nameservers.**\n\n| Value | Algorithm |\n|---|---|\n| `3` | DSA/SHA-1 |\n| `5` | RSA/SHA-1 |\n| `6` | DSA-NSEC3-SHA1 |\n| `7` | RSASHA1-NSEC3-SHA1 |\n| `8` | RSA/SHA-256 |\n| `10` | RSA/SHA-512 |\n| `12` | GOST R 34.10-2001 |\n| `13` | ECDSA P-256/SHA-256 |\n| `14` | ECDSA P-384/SHA-384 |\n| `15` | Ed25519 |\n| `16` | Ed448 |\n| `17` | SM2/SM3 |\n| `23` | GOST R 34.10-2012 |",
+            "enum": [3, 5, 6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 23],
+            "example": 13
+          },
+          "protocol": {
+            "type": "integer",
+            "description": "DNSKEY protocol. Must be `3` (the only valid value per RFC 4034). **Ignored for Atom/Parking nameservers.**",
+            "enum": [3],
+            "example": 3
+          },
+          "public_key": {
+            "type": "string",
+            "description": "Base64-encoded public key material from your DNS provider. **Ignored for Atom/Parking nameservers.**",
+            "example": "AwEAAaz/tAm8yeTHkmTpF84YtQQKDE2S..."
+          },
+          "digest_type": {
+            "type": "integer",
+            "description": "Digest algorithm used to compute the DS record returned in the response. Defaults to `2` (SHA-256). **Ignored for Atom/Parking nameservers.**\n\n| Value | Algorithm | Notes |\n|---|---|---|\n| `1` | SHA-1 | Legacy; avoid for new deployments |\n| `2` | SHA-256 | **Recommended** (default) |\n| `3` | GOST R 34.11-94 | Requires server-side GOST engine |\n| `4` | SHA-384 | High-security deployments |",
+            "enum": [1, 2, 3, 4],
+            "default": 2,
+            "example": 2
+          }
+        }
+      },
+      "EnableDnssecResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "DNSSEC enabled successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain_name": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "dnssec_enabled": {
+                "type": "boolean",
+                "example": true
+              },
+              "auto_managed": {
+                "type": "boolean",
+                "description": "`true` when Atom/Parking nameservers are in use and DNSSEC is auto-managed. `false` when custom nameservers are used and caller-supplied keys were applied.",
+                "example": true
+              },
+              "key_data": {
+                "type": "array",
+                "description": "Active DNSKEY records. Populated for Atom/Parking NS; echoes supplied key for custom NS.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "flags":     { "type": "integer", "example": 256 },
+                    "algorithm": { "type": "integer", "example": 13 },
+                    "protocol":  { "type": "integer", "example": 3 },
+                    "publicKey": { "type": "string",  "example": "AwEAAaz/tAm8yeTHkmTp..." }
+                  }
+                }
+              },
+              "ds_record": {
+                "type": "object",
+                "nullable": true,
+                "description": "DS record computed from the supplied DNSKEY using the requested `digest_type`. `null` for Atom/Parking nameservers (auto-managed) or if DS generation fails.",
+                "properties": {
+                  "keyTag": {
+                    "type": "integer",
+                    "description": "Key tag (RFC 4034 Appendix B).",
+                    "example": 40741
+                  },
+                  "algorithm": {
+                    "type": "integer",
+                    "description": "DNSKEY algorithm number (matches the `algorithm` supplied in the request).",
+                    "example": 13
+                  },
+                  "digestType": {
+                    "type": "integer",
+                    "description": "Digest type used (matches the `digest_type` supplied in the request, or `2` if omitted).",
+                    "example": 2
+                  },
+                  "digest": {
+                    "type": "string",
+                    "description": "Uppercase hex digest string.",
+                    "example": "49FD46E6C4B45C55D4AC69CBD3CD34AC1AFC42F7E79AC26D0986B31EF3AD27A7"
                   }
                 }
               }

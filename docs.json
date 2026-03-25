@@ -114,7 +114,8 @@
             "pages": [
               "api-reference/registrar_apis/list_contacts",
               "api-reference/registrar_apis/create_contact",
-              "api-reference/registrar_apis/update_contact"
+              "api-reference/registrar_apis/update_contact",
+              "api-reference/registrar_apis/update_domain_contacts"
             ]
           }
         ]
