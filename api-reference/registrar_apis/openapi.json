@@ -206,6 +206,134 @@
         }
       }
     },
+    "/registrar/v1/domains/transfer": {
+      "post": {
+        "operationId": "transferDomain",
+        "tags": ["Registrar"],
+        "summary": "Transfer a domain in",
+        "description": "Initiate a domain transfer-in to Atom Registrar. Validates eligibility (domain not already owned, no transfer in progress, correct auth code, no transfer lock, not registered within 60 days), resolves pricing, processes payment via account balance or saved card, then initiates the transfer with the upstream registrar. A confirmation email is sent when the transfer is accepted.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomainTransferRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Transfer initiated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "402": {
+            "description": "Payment failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Domain already in Atom Registrar or transfer already in progress",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Transfer not eligible (locked, invalid authcode, status, or 60-day restriction)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/registrar/v1/domains/transfer-bulk": {
+      "post": {
+        "operationId": "transferDomainBulk",
+        "tags": ["Registrar"],
+        "summary": "Bulk transfer domains in",
+        "description": "Initiate transfer-in for up to 10 domains in a single request. All domains are validated and priced first; a single payment is charged for the aggregate total. Transfers are then initiated one by one. Domains that fail to transfer are individually refunded to your account balance (if paid via balance) or flagged for manual review (if paid via card).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomainBulkTransferRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Bulk transfer complete (may include partial failures)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainBulkTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "402": {
+            "description": "Payment failed for the full batch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "No domains passed validation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
     "/registrar/v1/domains/{domain_name}": {
       "get": {
         "summary": "Get domain details",
@@ -1544,6 +1672,202 @@
                     "error": {
                       "type": "string",
                       "description": "Error message if status is error or invalid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DomainTransferRequest": {
+        "type": "object",
+        "required": ["domain_name", "authcode"],
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "example": "example.com",
+            "description": "The domain name to transfer in"
+          },
+          "authcode": {
+            "type": "string",
+            "example": "Ab1!Cd2@Ef3#",
+            "description": "Auth/EPP code from the current registrar. Required to authorize the transfer."
+          }
+        }
+      },
+      "DomainTransferResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Domain transfer initiated successfully"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "domain": {
+                "type": "string",
+                "example": "example.com"
+              },
+              "status": {
+                "type": "string",
+                "example": "Transfer Initiated"
+              },
+              "payment_method": {
+                "type": "string",
+                "enum": ["account_balance", "saved_card"],
+                "example": "account_balance"
+              },
+              "cart_id": {
+                "type": "integer",
+                "example": 12345
+              },
+              "price_breakdown": {
+                "type": "object",
+                "properties": {
+                  "unit_price": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 9.99
+                  },
+                  "icann_fee": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 0.18
+                  },
+                  "is_premium": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "total": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 10.17
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DomainBulkTransferRequest": {
+        "type": "object",
+        "required": ["domains"],
+        "properties": {
+          "domains": {
+            "type": "array",
+            "maxItems": 10,
+            "description": "List of domains to transfer (max 10 per request)",
+            "items": {
+              "type": "object",
+              "required": ["domain_name", "authcode"],
+              "properties": {
+                "domain_name": {
+                  "type": "string",
+                  "example": "example.com"
+                },
+                "authcode": {
+                  "type": "string",
+                  "example": "Ab1!Cd2@Ef3#"
+                }
+              }
+            }
+          }
+        }
+      },
+      "DomainBulkTransferResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Bulk transfer complete: 2 initiated, 0 failed"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "cart_id": {
+                "type": "integer",
+                "example": 12345
+              },
+              "payment_method": {
+                "type": "string",
+                "enum": ["account_balance", "saved_card"],
+                "example": "account_balance"
+              },
+              "total_requested": {
+                "type": "integer",
+                "example": 2
+              },
+              "total_valid": {
+                "type": "integer",
+                "example": 2
+              },
+              "succeeded": {
+                "type": "integer",
+                "example": 2
+              },
+              "failed": {
+                "type": "integer",
+                "example": 0
+              },
+              "total_charged": {
+                "type": "number",
+                "format": "float",
+                "example": 20.34
+              },
+              "total_refunded": {
+                "type": "number",
+                "format": "float",
+                "example": 0,
+                "description": "Amount refunded to account balance for failed transfers (only when payment method is account_balance)"
+              },
+              "results": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "domain": {
+                      "type": "string",
+                      "example": "example.com"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["Transfer Initiated", "failed"],
+                      "example": "Transfer Initiated"
+                    },
+                    "error": {
+                      "type": "string",
+                      "description": "Present only when status is failed",
+                      "example": "Domain is locked for transfer"
+                    },
+                    "price_breakdown": {
+                      "type": "object",
+                      "description": "Present only when status is Transfer Initiated",
+                      "properties": {
+                        "unit_price": {
+                          "type": "number",
+                          "format": "float",
+                          "example": 9.99
+                        },
+                        "icann_fee": {
+                          "type": "number",
+                          "format": "float",
+                          "example": 0.18
+                        },
+                        "is_premium": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
                     }
                   }
                 }

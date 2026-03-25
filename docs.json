@@ -66,6 +66,13 @@
             ]
           },
           {
+            "group": "Domain Transfers",
+            "pages": [
+              "api-reference/registrar_apis/transfer_domain",
+              "api-reference/registrar_apis/transfer_domain_bulk"
+            ]
+          },
+          {
             "group": "DNS Management",
             "pages": [
               "api-reference/registrar_apis/list_dns_records",
