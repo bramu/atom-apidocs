@@ -206,6 +206,37 @@
         }
       }
     },
+    "/registrar/v1/coupons": {
+      "get": {
+        "operationId": "listRegistrarCoupons",
+        "tags": ["Registrar"],
+        "summary": "List registrar coupons",
+        "description": "Retrieve all available registrar coupons for the authenticated account, including discount details, limits, and eligibility constraints.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CouponsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
     "/registrar/v1/domains/transfer": {
       "post": {
         "operationId": "transferDomain",
@@ -1586,6 +1617,83 @@
           }
         }
       },
+      "CouponsResponse": {
+        "type": "object",
+        "properties": {
+          "coupons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Coupon"
+            }
+          }
+        }
+      },
+      "Coupon": {
+        "type": "object",
+        "properties": {
+          "coupon_code": {
+            "type": "string",
+            "description": "The coupon code string.",
+            "example": "SAVE10"
+          },
+          "tld": {
+            "type": "string",
+            "description": "Applicable TLD (e.g. .com), or \"*\" if all TLDs.",
+            "example": ".com"
+          },
+          "purpose": {
+            "type": "string",
+            "description": "Coupon purpose: registration, renewal, or transfer.",
+            "enum": ["registration", "renewal", "transfer"],
+            "example": "registration"
+          },
+          "discounted_price": {
+            "type": "number",
+            "format": "float",
+            "description": "Final price after discount, not the discount amount.",
+            "example": 7.99
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code.",
+            "example": "USD"
+          },
+          "expiration_date": {
+            "type": "string",
+            "nullable": true,
+            "description": "ISO 8601 date (YYYY-MM-DD); null if no expiration.",
+            "format": "date",
+            "example": "2026-12-31"
+          },
+          "qty_limit_per_customer": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Maximum uses per customer; null means unlimited.",
+            "example": 3
+          },
+          "total_qty_limit": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Total redemption cap; null means unlimited.",
+            "example": 1000
+          },
+          "total_qty_used": {
+            "type": "integer",
+            "description": "Total redemptions to date.",
+            "example": 320
+          },
+          "sms_verification_required": {
+            "type": "boolean",
+            "description": "Whether SMS verification is required to redeem.",
+            "example": false
+          },
+          "new_registrar_customers_only": {
+            "type": "boolean",
+            "description": "Whether restricted to first-time Atom customers.",
+            "example": true
+          }
+        }
+      },
       "DomainSummary": {
         "type": "object",
         "properties": {
@@ -2121,6 +2229,11 @@
             "default": 1,
             "example": 2,
             "description": "Number of years to register (1-10)"
+          },
+          "coupon": {
+            "type": "string",
+            "description": "Optional coupon code to apply discounted registrar pricing.",
+            "example": "SAVE10"
           }
         }
       },
