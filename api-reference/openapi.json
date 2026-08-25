@@ -48,7 +48,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["standard", "premium", "geo"]
+              "enum": [
+                "standard",
+                "premium",
+                "geo"
+              ]
             }
           },
           {
@@ -80,76 +84,35 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Domain"
+                    "$ref": "#/components/schemas/MarketplaceDomain"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/domain/search": {
-      "get": {
-        "description": "Search your domain portfolio by keyword, category, or name type. Use this to find specific domains within your listings.",
-        "parameters": [
-          {
-            "name": "api_token",
-            "in": "query",
-            "description": "Your API key",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "user_id",
-            "in": "query",
-            "description": "Your Atom user ID",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "category",
-            "in": "query",
-            "description": "Search by category",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "keyword",
-            "in": "query",
-            "description": "Search by Keyword",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "name_type",
-            "in": "query",
-            "description": "Search by Type of Name",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
+                },
+                "example": [
+                  {
+                    "id": 2725,
+                    "domain_name": "Grandopia.com",
+                    "status": "Seller Approved",
+                    "full_price": 9999,
+                    "selling_price": 9999,
+                    "primary_category": "Aerospace",
+                    "discount": 0,
+                    "description": "Grandopia.com is a visionary domain perfect for brands aiming to inspire greatness. Evoking a sense of grandeur and utopia, it\u2019s an ideal fit for startups in hospitality, real estate, or luxury lifestyle. Picture a platform that curates extraordinary experiences or a community that redefines opulent living. Grandopia embodies aspiration, inviting users to explore a world of possibilities. Its brandable quality makes it memorable and versatile, ensuring it stands out in a crowded marketplace. With Grandopia.com, the future of extraordinary ventures awaits\u2014ready to turn dreams into reality.",
+                    "logo_image": "https://public.atom.com/story_images/visual_images/?class=listing",
+                    "listing_type": "Plus"
+                  },
+                  {
+                    "id": 3488,
+                    "domain_name": "Pivotis.com",
+                    "status": "Transfer Complete",
+                    "full_price": 699,
+                    "selling_price": 3499,
+                    "primary_category": "Agency & Consulting",
+                    "discount": 0,
+                    "description": "Versatile made up name based on the word \"Pivot\"; someone or something having a major or central role, function, or effect.",
+                    "logo_image": "https://public.atom.com/story_images/visual_images/?class=listing",
+                    "listing_type": "Premium"
                   }
-                }
+                ]
               }
             }
           }
@@ -187,9 +150,31 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Domain"
+                    "$ref": "#/components/schemas/CategoryItem"
                   }
-                }
+                },
+                "example": [
+                  {
+                    "id": 9,
+                    "name": "Fitness & Gym"
+                  },
+                  {
+                    "id": 56,
+                    "name": "Music & Audio"
+                  },
+                  {
+                    "id": 110,
+                    "name": "Tutoring & Test Prep"
+                  },
+                  {
+                    "id": 115,
+                    "name": "Catering"
+                  },
+                  {
+                    "id": 130,
+                    "name": "Weddings & Bridal"
+                  }
+                ]
               }
             }
           }
@@ -234,10 +219,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MarketplaceDomain"
+                },
+                "example": {
+                  "id": 2725,
+                  "domain_name": "Grandopia.com",
+                  "status": "Seller Approved",
+                  "full_price": 9999,
+                  "selling_price": 9999,
+                  "primary_category": "Aerospace",
+                  "discount": 0,
+                  "description": "Grandopia.com is a visionary domain perfect for brands aiming to inspire greatness. Evoking a sense of grandeur and utopia, it\u2019s an ideal fit for startups in hospitality, real estate, or luxury lifestyle. Picture a platform that curates extraordinary experiences or a community that redefines opulent living. Grandopia embodies aspiration, inviting users to explore a world of possibilities. Its brandable quality makes it memorable and versatile, ensuring it stands out in a crowded marketplace. With Grandopia.com, the future of extraordinary ventures awaits\u2014ready to turn dreams into reality.",
+                  "logo_image": "https://public.atom.com/story_images/visual_images/?class=listing",
+                  "listing_type": "Plus"
                 }
               }
             }
@@ -274,7 +268,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["standard", "premium", "geo"]
+              "enum": [
+                "standard",
+                "premium",
+                "geo"
+              ]
             }
           },
           {
@@ -304,10 +302,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Successfully uploaded"
                 }
               }
             }
@@ -353,10 +351,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Successfully removed the domain"
                 }
               }
             }
@@ -413,10 +411,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Successfully updated selling price"
                 }
               }
             }
@@ -453,10 +451,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/PrimaryCategoriesResponse"
+                },
+                "example": {
+                  "message": "Primary categories list",
+                  "categories": [
+                    "Fitness & Gym",
+                    "Music & Audio",
+                    "Tutoring & Test Prep",
+                    "Catering",
+                    "Weddings & Bridal",
+                    "Insurance",
+                    "Venture Capital & Investment",
+                    "Beer, Wine & Spirits",
+                    "Coffee & Tea",
+                    "Food Truck"
+                  ]
                 }
               }
             }
@@ -512,10 +522,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Assigned primary category"
                 }
               }
             }
@@ -571,10 +581,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Successfully updated Domain description"
                 }
               }
             }
@@ -611,11 +621,14 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["standard", "premium"]
+              "enum": [
+                "standard",
+                "premium"
+              ]
             }
           },
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "description": "Page number",
             "required": false,
@@ -643,9 +656,31 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Domain"
+                    "$ref": "#/components/schemas/SaleRecord"
                   }
-                }
+                },
+                "example": [
+                  {
+                    "Domain Name": "Gymsia.com",
+                    "sales_type": "WLM",
+                    "sale_date": "Oct 04, 2018 12:05:40",
+                    "sale_amount": 1849,
+                    "sale_amount_net": 0,
+                    "sale_terms": "6 installments",
+                    "transfer_status": null,
+                    "added_on": "Mar 07, 2025 05:12:02"
+                  },
+                  {
+                    "Domain Name": "Wazzango.com",
+                    "sales_type": "Premium",
+                    "sale_date": "May 05, 2023 09:58:52",
+                    "sale_amount": 1999,
+                    "sale_amount_net": 0,
+                    "sale_terms": "Outright",
+                    "transfer_status": null,
+                    "added_on": "Mar 14, 2024 10:25:36"
+                  }
+                ]
               }
             }
           }
@@ -675,7 +710,7 @@
             }
           },
           {
-            "name": "Page",
+            "name": "page",
             "in": "query",
             "description": "Page number",
             "required": false,
@@ -703,9 +738,35 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Domain"
+                    "$ref": "#/components/schemas/MarketplaceDomain"
                   }
-                }
+                },
+                "example": [
+                  {
+                    "id": 16109255,
+                    "domain_name": "Cirro.com",
+                    "status": "Approved",
+                    "full_price": 0,
+                    "selling_price": 126299,
+                    "primary_category": "Tech, Internet, Software",
+                    "discount": 0,
+                    "description": "Cirro.com is a dynamic, five-letter, two-syllable domain that evokes imagery of clouds and elevation\u2014perfect for brands aiming to inspire. With its airy connotation, Cirro embodies innovation and limitless potential, making it ideal for tech startups, cloud services, or wellness brands focused on holistic growth. The name's brevity enhances memorability, ensuring easy recall and branding versatility. Cirro captures a sense of uplift and clarity, inviting users to dream big and soar high. This domain isn\u2019t just a web address; it\u2019s a launchpad for visionary ideas and transformative experiences. Grab Cirro.com and elevate your brand today!",
+                    "logo_image": "https://public.atom.com/story_images/visual_images/logo-image-29930-cirro.jpg?class=listing",
+                    "listing_type": "Premium"
+                  },
+                  {
+                    "id": 18111544,
+                    "domain_name": "SteelVerdict.com",
+                    "status": "Approved",
+                    "full_price": 5999,
+                    "selling_price": 6599.000000000001,
+                    "primary_category": "E-Commerce & Retail",
+                    "discount": 0,
+                    "description": "SteelVerdict.com embodies strength and resilience, merging the unyielding nature of steel with the finality of a verdict. This powerful domain name evokes trust and decisiveness, making it perfect for startups in legal tech, construction, or manufacturing. Imagine a platform that streamlines legal processes with cutting-edge technology or an innovative construction firm setting new industry standards. SteelVerdict.com inspires confidence, suggesting that users can rely on its services to forge solid foundations\u2014both literally and metaphorically. With its memorable sound and impactful imagery, this domain is set to become a cornerstone for any ambitious brand ready to make a bold statement...",
+                    "logo_image": "https://public.atom.com/story_images/visual_images/logo-image-73892-steelverdict.jpg?class=listing",
+                    "listing_type": "Premium"
+                  }
+                ]
               }
             }
           }
@@ -751,17 +812,23 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "enum": ["Standard", "Super"]
+              "enum": [
+                "Standard",
+                "Super"
+              ]
             }
           },
           {
             "name": "source_of_deduction",
             "in": "query",
-            "description": "Source of Deduction ('points’, 'coins’, ‘loyalty_benefit’)",
+            "description": "Source of Deduction ('points\u2019, 'coins\u2019, \u2018loyalty_benefit\u2019)",
             "required": true,
             "schema": {
               "type": "integer",
-              "enum": ["Standard", "Super"]
+              "enum": [
+                "Standard",
+                "Super"
+              ]
             }
           }
         ],
@@ -771,10 +838,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Boost added successfully"
                 }
               }
             }
@@ -821,10 +888,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/DomainAnalyticsResponse"
+                },
+                "example": {
+                  "total_views": 4850,
+                  "total_shortlists": 390,
+                  "total_offers": 1
                 }
               }
             }
@@ -881,10 +950,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Successfully updated Discount price"
                 }
               }
             }
@@ -931,10 +1000,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/DnsVerifyResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "DNS check request accepted"
                 }
               }
             }
@@ -981,10 +1051,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/MessageResponse"
+                },
+                "example": {
+                  "message": "Domains Uploaded Successfully"
                 }
               }
             }
@@ -1051,10 +1121,54 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/GradeDomainResultResponse"
+                },
+                "example": {
+                  "count": 8261,
+                  "data": [
+                    {
+                      "id": 7660192,
+                      "domain_name": "morefunz.ai",
+                      "total_gpt_reviews": 0,
+                      "total_gpt_favourites": 0,
+                      "total_gpt_reverse_reviews": 0,
+                      "total_gpt_negative_votes": 0,
+                      "created_at": "2026-03-31 05:03:19",
+                      "updated_at": "2026-03-31 05:22:26",
+                      "is_brand_fit": 1,
+                      "close_out_domain_id": null,
+                      "market_place_domain_id": null,
+                      "total_gpt_final_reviews": 0,
+                      "total_gpt_final_favourites": 0,
+                      "done_grading": 1,
+                      "slot": "grade_domain",
+                      "meta_data": null,
+                      "date_submitted": "Mar 31, 2026 05:04",
+                      "status": "NA",
+                      "premium_fit": ""
+                    },
+                    {
+                      "id": 7659422,
+                      "domain_name": "weavoraindia.com",
+                      "total_gpt_reviews": 0,
+                      "total_gpt_favourites": 0,
+                      "total_gpt_reverse_reviews": 0,
+                      "total_gpt_negative_votes": 0,
+                      "created_at": "2026-03-26 05:30:28",
+                      "updated_at": "2026-03-26 05:30:50",
+                      "is_brand_fit": 0,
+                      "close_out_domain_id": null,
+                      "market_place_domain_id": null,
+                      "total_gpt_final_reviews": 0,
+                      "total_gpt_final_favourites": 0,
+                      "done_grading": 1,
+                      "slot": "grade_domain",
+                      "meta_data": null,
+                      "date_submitted": "Mar 26, 2026 05:30",
+                      "status": "In Progress",
+                      "premium_fit": "Buyer Personas Checked: 0"
+                    }
+                  ]
                 }
               }
             }
@@ -1100,9 +1214,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
+                  "$ref": "#/components/schemas/SmartDomainSearchResponse"
+                },
+                "example": {
+                  "premium_domains": [
+                    {
+                      "domain_name": "brightly.com",
+                      "availability": 1,
+                      "selling_price": 9995,
+                      "image_url": null
+                    }
+                  ],
+                  "generated_domains": {
+                    "Bright Ly": [
+                      {
+                        "domain": "brightly.com",
+                        "available": false
+                      }
+                    ]
                   }
                 }
               }
@@ -1163,7 +1292,7 @@
           {
             "name": "class",
             "in": "query",
-            "description": "International class filter (e.g., ‘009’ for computer software)",
+            "description": "International class filter (e.g., \u2018009\u2019 for computer software)",
             "schema": {
               "type": "string"
             }
@@ -1191,9 +1320,80 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
+                  "$ref": "#/components/schemas/TrademarkSearchResponse"
+                },
+                "example": {
+                  "success": true,
+                  "keyword": "brightly",
+                  "search_type": "phrase",
+                  "filing_status": "all",
+                  "class": "",
+                  "page": 1,
+                  "page_size": 3,
+                  "total_results": 103,
+                  "data": [
+                    {
+                      "trademark_name": "BRIGHTLY",
+                      "serial_number": "88421013",
+                      "description": "Downloadable computer software for mobile devices featuring digital content in the nature of podcasts, webcasts, online magazines and journals, newsletters and blogs in the fields of shopping, health,...",
+                      "status_category": "Dead",
+                      "status_subcategory": "Abandoned",
+                      "status_code": 606,
+                      "international_classes": "009",
+                      "owners": "BRIGHTLY GROUP INC., BRIGHTLY GROUP INC., Blue Tarp Strategies, Inc.",
+                      "owners_full_details": [
+                        {
+                          "address": "236 WEST 30TH STREET, 8TH FLOOR ",
+                          "entry_number": "1",
+                          "city": "NEW YORK",
+                          "party_type": "20",
+                          "legal_entity_type_code": "03",
+                          "name": "BRIGHTLY GROUP INC.",
+                          "postcode": "10001",
+                          "state": "NY"
+                        }
+                      ],
+                      "filing_date": "2019-05-08",
+                      "mark_drawing_code": "4",
+                      "standard_characters_claimed": "T",
+                      "trademark_in": "T",
+                      "service_mark_in": "F",
+                      "collective_service_mark_in": "F",
+                      "collective_membership_mark_in": "F",
+                      "certification_mark_in": "F",
+                      "intent_to_use_in": "T",
+                      "intent_to_use_current_in": "T",
+                      "attorney_name": "Kristin Grant",
+                      "attorney_correspondence": "Kristin Grant GRANT ATTORNEYS AT LAW PLLC;40 EXCHANGE PLACE, SUITE 1306;NEW YORK, NY 10005;UNITED STATES ",
+                      "attorney_doc_number": "",
+                      "registration_date": "N/A",
+                      "status_date": "2022-06-06",
+                      "case_file_events_statements": [
+                        {
+                          "date": "20200520",
+                          "number": "18",
+                          "code": "AITU",
+                          "description-text": "CASE ASSIGNED TO INTENT TO USE PARALEGAL",
+                          "type": "A"
+                        },
+                        {
+                          "date": "20220317",
+                          "number": "42",
+                          "code": "ARAA",
+                          "description-text": "ATTORNEY/DOM.REP.REVOKED AND/OR APPOINTED",
+                          "type": "I"
+                        }
+                      ],
+                      "created_at": "2025-08-28 16:25:42",
+                      "logo_path": "/data/new/uspto/tm_images/88/42/10/13/88421013.png",
+                      "_score": 3009.419
+                    }
+                  ],
+                  "usage": {
+                    "used_today": 1,
+                    "daily_limit": 10,
+                    "cumulative_count": 1,
+                    "user_level": "B"
                   }
                 }
               }
@@ -1240,7 +1440,7 @@
             "description": "Page number",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
@@ -1249,7 +1449,7 @@
             "description": "Page size",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],
@@ -1259,10 +1459,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/PartnerSearchResponse"
+                },
+                "example": {
+                  "success": true,
+                  "total_records": 240,
+                  "total_pages": 12,
+                  "data": [
+                    {
+                      "id": 12345,
+                      "domain_name": "brightly.com",
+                      "status": "Approved",
+                      "full_price": 12995,
+                      "selling_price": 9995,
+                      "primary_category": "Technology",
+                      "discount": 3000,
+                      "description": "A bright, memorable brandable domain.",
+                      "logo_image": "https://www.atom.com/logo/brightly.png",
+                      "purchase_url": "https://www.atom.com/name/brightly.com/rm/42",
+                      "image_url": "https://www.atom.com/logo/brightly.png"
+                    }
+                  ]
                 }
               }
             }
@@ -1308,10 +1525,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/DomainDataResponse"
+                },
+                "example": {
+                  "id": 12345,
+                  "domain_name": "brightly.com",
+                  "status": "Approved",
+                  "full_price": 12995,
+                  "selling_price": 9995,
+                  "primary_category": "Technology",
+                  "discount": 3000,
+                  "description": "A bright, memorable brandable domain.",
+                  "logo_image": "https://www.atom.com/logo/brightly.png",
+                  "exp_commission": 450
                 }
               }
             }
@@ -1357,10 +1583,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/SuccessMessageResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Domain successfully added to Onhold"
                 }
               }
             }
@@ -1405,8 +1632,7 @@
             "description": "Custom payment amount if different from the listed selling price",
             "required": false,
             "schema": {
-              "type": "integer",
-              "default": ""
+              "type": "integer"
             }
           }
         ],
@@ -1416,9 +1642,52 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
+                  "$ref": "#/components/schemas/ConfirmOrderResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Successfully Created Order",
+                  "domain_name": "brightly.com",
+                  "order_id": 98765,
+                  "order_data": {
+                    "order_id": 98765,
+                    "order_status": "Completed",
+                    "transfer_status": "Completed",
+                    "transfer_option": "option2",
+                    "domain_name": "brightly.com",
+                    "sale_price": 9995,
+                    "expected_net_payout": 8495.75,
+                    "actual_net_payout": 8495.75,
+                    "created_at": "2026-03-09 10:15:22",
+                    "updated_at": "2026-03-09 11:02:01",
+                    "domain": {
+                      "id": 12345,
+                      "domain_name": "brightly.com",
+                      "status": "Purchased",
+                      "full_price": 12995,
+                      "selling_price": 9995,
+                      "primary_category": "Technology",
+                      "discount": 3000,
+                      "description": "A bright, memorable brandable domain.",
+                      "logo_image": "https://www.atom.com/logo/brightly.png",
+                      "image_url": "https://www.atom.com/logo/brightly.png"
+                    },
+                    "order_financials": {
+                      "base_sale_price": 9995,
+                      "calculated_sale_price": 9995,
+                      "expected_net_payout": 8495.75,
+                      "actual_net_payout": 8495.75,
+                      "commission_rate": 15
+                    },
+                    "transfer_details": {
+                      "transfer_option": "option2",
+                      "transfer_status": "Completed",
+                      "transfer_registrar": "GoDaddy",
+                      "transfer_auth_code": "AUTH-CODE-123"
+                    },
+                    "partner_meta": {
+                      "user_id": 1001
+                    }
                   }
                 }
               }
@@ -1465,10 +1734,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/SuccessMessageResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Domain successfully removed from hold"
                 }
               }
             }
@@ -1514,10 +1784,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/TransferAuthCodeResponse"
+                },
+                "example": {
+                  "success": true,
+                  "message": "Successfully fetched auth code",
+                  "auth_code": "AUTH-CODE-123"
                 }
               }
             }
@@ -1563,10 +1835,36 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/DomainAppraisalResponse"
+                },
+                "example": {
+                  "domain_name": "brightly.com",
+                  "atom_appraisal": 387500,
+                  "domain_score": "9.00",
+                  "positive_signals": [
+                    "Short (8) Letters",
+                    "Registered in 112 TLDs",
+                    "Matching Companies Found in Crunchbase",
+                    "Aged Domain (26.00 Years)",
+                    "2 Syllables",
+                    "Dictionary Word"
+                  ],
+                  "negative_signals": [],
+                  "root_words": [],
+                  "tld_taken_count": 112,
+                  "tm_conflicts": 30,
+                  "date_registered": "1998-01-23 05:00:00",
+                  "external_message": null,
+                  "appraisal_token": "abc123token",
+                  "is_listed": false,
+                  "bin_price": null,
+                  "usage": {
+                    "used_today": 1,
+                    "daily_limit": 500,
+                    "cumulative_count": 1,
+                    "user_level": "C"
+                  },
+                  "bonus_credits_remaining": 244
                 }
               }
             }
@@ -1576,7 +1874,7 @@
     },
     "/semantic-search": {
       "get": {
-        "description": "Discover domains using natural language queries. Describe what you're looking for — such as 'names for a healthcare startup' or 'short brandable tech names' — and get back the most relevant matches from Atom's marketplace using advanced AI-powered semantic search.",
+        "description": "Discover domains using natural language queries. Describe what you're looking for \u2014 such as 'names for a healthcare startup' or 'short brandable tech names' \u2014 and get back the most relevant matches from Atom's marketplace using advanced AI-powered semantic search.",
         "parameters": [
           {
             "name": "api_token",
@@ -1599,7 +1897,7 @@
           {
             "name": "query",
             "in": "query",
-            "description": "Natural language search query (e.g., 'tech startup names’, ‘healthcare companies’) Example: tech startup names",
+            "description": "Natural language search query (e.g., 'tech startup names\u2019, \u2018healthcare companies\u2019) Example: tech startup names",
             "required": true,
             "schema": {
               "type": "string"
@@ -1636,10 +1934,37 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/SemanticSearchResponse"
+                },
+                "example": {
+                  "success": true,
+                  "query": "tech startup names",
+                  "page": 1,
+                  "page_size": 20,
+                  "total": 20,
+                  "total_pages": 1,
+                  "processing_time_ms": 312.45,
+                  "domains": [
+                    {
+                      "id": "brightly.com",
+                      "domain_name": "brightly.com",
+                      "image_url": "https://www.atom.com/logo/brightly.png",
+                      "tld": "com",
+                      "structure": 8,
+                      "emotion": "Optimistic",
+                      "price": 9995,
+                      "selling_price": 9995,
+                      "discount_price": 0,
+                      "type_of_name": "One Word",
+                      "special_collection": "",
+                      "score": 0.87,
+                      "pricing_type": "BIN",
+                      "price_text": null,
+                      "metadata": {
+                        "tld": "com"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -1675,15 +2000,22 @@
             "description": "Date in YYYY-MM-DD format to get listings for Example: 2025-07-21",
             "required": true,
             "schema": {
-              "type": "date"
+              "type": "string",
+              "format": "date",
+              "example": "2025-07-21"
             }
           },
           {
             "name": "listing_type",
             "in": "query",
-            "description": "Filter by listing type. ‘Curated’ returns only Atom-curated premium domains. ‘All’ returns all newly listed domains. Default: All",
+            "description": "Filter by listing type. \u2018Curated\u2019 returns only Atom-curated premium domains. \u2018All\u2019 returns all newly listed domains. Default: All",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "Curated",
+                "All"
+              ],
+              "default": "All"
             }
           }
         ],
@@ -1693,10 +2025,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/NewListingsResponse"
+                },
+                "example": {
+                  "success": true,
+                  "total_records": 1,
+                  "date": "2025-07-21",
+                  "listing_type_filter": "All",
+                  "data": [
+                    {
+                      "domain_name": "brightly.com",
+                      "selling_price": "$9,995",
+                      "listing_type": "Curated",
+                      "word1": "bright",
+                      "word2": "ly",
+                      "word3": null,
+                      "type_of_name": "One Word"
+                    }
+                  ]
                 }
               }
             }
@@ -1734,6 +2080,29 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination (default: 1)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of orders per page (default: 20, max: 100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
           }
         ],
         "responses": {
@@ -1742,10 +2111,40 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
-                  }
+                  "$ref": "#/components/schemas/OrderListResponse"
+                },
+                "example": {
+                  "success": true,
+                  "total_records": 1,
+                  "total_pages": 1,
+                  "page": 1,
+                  "limit": 20,
+                  "data": [
+                    {
+                      "order_id": 98765,
+                      "order_status": "Completed",
+                      "transfer_status": "Completed",
+                      "transfer_option": "option2",
+                      "domain_name": "brightly.com",
+                      "sale_price": 9995,
+                      "expected_net_payout": 8495.75,
+                      "actual_net_payout": 8495.75,
+                      "created_at": "2026-03-09 10:15:22",
+                      "updated_at": "2026-03-09 11:02:01",
+                      "domain": {
+                        "id": 12345,
+                        "domain_name": "brightly.com",
+                        "status": "Purchased",
+                        "full_price": 12995,
+                        "selling_price": 9995,
+                        "primary_category": "Technology",
+                        "discount": 3000,
+                        "description": "A bright, memorable brandable domain.",
+                        "logo_image": "https://www.atom.com/logo/brightly.png",
+                        "image_url": "https://www.atom.com/logo/brightly.png"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -1755,7 +2154,7 @@
     },
     "/order-details": {
       "get": {
-        "description": "Retrieve list of all partnership orders, including key details such as order status, total price, and created date. Use this endpoint to power order history views or internal reconciliation tools.",
+        "description": "Retrieve full details for a specific partnership order, including purchased domain, pricing, payment/transfer status, financials, and partner metadata.",
         "parameters": [
           {
             "name": "api_token",
@@ -1791,11 +2190,154 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Domain"
+                  "$ref": "#/components/schemas/OrderDetailsResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "order_id": 98765,
+                    "order_status": "Completed",
+                    "transfer_status": "Completed",
+                    "transfer_option": "option2",
+                    "domain_name": "brightly.com",
+                    "sale_price": 9995,
+                    "expected_net_payout": 8495.75,
+                    "actual_net_payout": 8495.75,
+                    "created_at": "2026-03-09 10:15:22",
+                    "updated_at": "2026-03-09 11:02:01",
+                    "domain": {
+                      "id": 12345,
+                      "domain_name": "brightly.com",
+                      "status": "Purchased",
+                      "full_price": 12995,
+                      "selling_price": 9995,
+                      "primary_category": "Technology",
+                      "discount": 3000,
+                      "description": "A bright, memorable brandable domain.",
+                      "logo_image": "https://www.atom.com/logo/brightly.png",
+                      "image_url": "https://www.atom.com/logo/brightly.png"
+                    },
+                    "order_financials": {
+                      "base_sale_price": 9995,
+                      "calculated_sale_price": 9995,
+                      "expected_net_payout": 8495.75,
+                      "actual_net_payout": 8495.75,
+                      "commission_rate": 15
+                    },
+                    "transfer_details": {
+                      "transfer_option": "option2",
+                      "transfer_status": "Completed",
+                      "transfer_registrar": "GoDaddy",
+                      "transfer_auth_code": "AUTH-CODE-123"
+                    },
+                    "partner_meta": {
+                      "user_id": 1001
+                    }
                   }
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domains/search": {
+      "get": {
+        "description": "Search your domain portfolio by keyword, category, or name type. Use this to find specific domains within your listings.",
+        "parameters": [
+          {
+            "name": "api_token",
+            "in": "query",
+            "description": "Your API key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Your Atom user ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Search by category",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "Search by Keyword",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name_type",
+            "in": "query",
+            "description": "Search by Type of Name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DomainSearchResult"
+                  }
+                },
+                "example": [
+                  {
+                    "id": 16109255,
+                    "base_name": "Cirro",
+                    "domain_name": "Cirro.com",
+                    "selling_price": 0,
+                    "visual_image": "https://public.atom.com/story_images/visual_images/logo-image-29930-cirro.jpg?class=listing",
+                    "sale_price": 0,
+                    "discount_price": 0,
+                    "sale_visual_image": null,
+                    "on_discount": false,
+                    "make_offer": 0,
+                    "on_make_offer": false,
+                    "status": "Approved",
+                    "url": "https://www.atom.com/name/Cirro/rm/305",
+                    "category_name": "Tech, Internet, Software",
+                    "category_id": 619
+                  },
+                  {
+                    "id": 10333,
+                    "base_name": "Avantley",
+                    "domain_name": "Avantley.com",
+                    "selling_price": 3299,
+                    "visual_image": "https://public.atom.com/story_images/visual_images/logo-image-23899-avantley.jpg?class=listing",
+                    "sale_price": 3499,
+                    "discount_price": 0,
+                    "sale_visual_image": "Banner_Domain_VisualSale_L_14_Avantley.jpg",
+                    "on_discount": false,
+                    "make_offer": 0,
+                    "on_make_offer": false,
+                    "status": "Approved",
+                    "url": "https://www.atom.com/name/Avantley/rm/305",
+                    "category_name": "Agency & Consulting",
+                    "category_id": 592
+                  }
+                ]
               }
             }
           }
@@ -1805,71 +2347,1161 @@
   },
   "components": {
     "schemas": {
-      "Domain": {
-        "required": [
-          "name"
-        ],
+      "MarketplaceDomain": {
         "type": "object",
+        "description": "Domain listing payload returned by seller/marketplace domain APIs.",
         "properties": {
-          "name": {
-            "description": "Example Value",
+          "id": {
+            "type": "integer",
+            "example": 2725
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "Grandopia.com"
+          },
+          "status": {
+            "type": "string",
+            "example": "Seller Approved"
+          },
+          "full_price": {
+            "type": "number",
+            "example": 9999
+          },
+          "selling_price": {
+            "type": "number",
+            "example": 9999
+          },
+          "primary_category": {
+            "type": "string",
+            "example": "Aerospace"
+          },
+          "discount": {
+            "type": "number",
+            "example": 0
+          },
+          "description": {
             "type": "string"
           },
-          "tag": {
-            "description": "Model",
-            "type": "string"
+          "logo_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "listing_type": {
+            "type": "string",
+            "example": "Plus"
           }
         }
       },
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant1",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
+      "PartnerSearchDomain": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/Plant"
+            "$ref": "#/components/schemas/MarketplaceDomain"
           },
           {
-            "required": [
-              "id"
-            ],
             "type": "object",
             "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+              "purchase_url": {
+                "type": "string",
+                "example": "https://www.atom.com/name/brightly.com/rm/42"
+              },
+              "image_url": {
+                "type": "string",
+                "nullable": true,
+                "example": "https://www.atom.com/logo/brightly.png"
               }
             }
           }
         ]
       },
+      "PartnerSearchResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "total_records": {
+            "type": "integer",
+            "example": 240
+          },
+          "total_pages": {
+            "type": "integer",
+            "example": 12
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerSearchDomain"
+            }
+          }
+        }
+      },
+      "DomainDataResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MarketplaceDomain"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "exp_commission": {
+                "type": "integer",
+                "description": "Expected partner commission when available",
+                "example": 450
+              }
+            }
+          }
+        ]
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Successfully updated"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "SuccessMessageResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Domain successfully added to Onhold"
+          }
+        }
+      },
+      "PartnerOrderDomain": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MarketplaceDomain"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "image_url": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "PartnerOrder": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "integer",
+            "example": 98765
+          },
+          "order_status": {
+            "type": "string",
+            "example": "Completed"
+          },
+          "transfer_status": {
+            "type": "string",
+            "nullable": true,
+            "example": "Completed"
+          },
+          "transfer_option": {
+            "type": "string",
+            "nullable": true,
+            "example": "option2"
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "sale_price": {
+            "type": "number",
+            "example": 9995
+          },
+          "expected_net_payout": {
+            "type": "number",
+            "nullable": true,
+            "example": 8495.75
+          },
+          "actual_net_payout": {
+            "type": "number",
+            "nullable": true,
+            "example": 8495.75
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-03-09 10:15:22"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2026-03-09 11:02:01"
+          },
+          "domain": {
+            "$ref": "#/components/schemas/PartnerOrderDomain",
+            "nullable": true
+          }
+        }
+      },
+      "OrderFinancials": {
+        "type": "object",
+        "properties": {
+          "base_sale_price": {
+            "type": "number",
+            "example": 9995
+          },
+          "calculated_sale_price": {
+            "type": "number",
+            "example": 9995
+          },
+          "expected_net_payout": {
+            "type": "number",
+            "nullable": true,
+            "example": 8495.75
+          },
+          "actual_net_payout": {
+            "type": "number",
+            "nullable": true,
+            "example": 8495.75
+          },
+          "commission_rate": {
+            "type": "number",
+            "nullable": true,
+            "example": 15
+          }
+        }
+      },
+      "TransferDetails": {
+        "type": "object",
+        "properties": {
+          "transfer_option": {
+            "type": "string",
+            "nullable": true,
+            "example": "option2"
+          },
+          "transfer_status": {
+            "type": "string",
+            "nullable": true,
+            "example": "Completed"
+          },
+          "transfer_registrar": {
+            "type": "string",
+            "nullable": true,
+            "example": "GoDaddy"
+          },
+          "transfer_auth_code": {
+            "type": "string",
+            "nullable": true,
+            "example": "AUTH-CODE-123"
+          }
+        }
+      },
+      "PartnerOrderExtended": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PartnerOrder"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "order_financials": {
+                "$ref": "#/components/schemas/OrderFinancials"
+              },
+              "transfer_details": {
+                "$ref": "#/components/schemas/TransferDetails"
+              },
+              "partner_meta": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": 1001
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "OrderListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "total_records": {
+            "type": "integer",
+            "example": 2
+          },
+          "total_pages": {
+            "type": "integer",
+            "example": 1
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "limit": {
+            "type": "integer",
+            "example": 20
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartnerOrder"
+            }
+          }
+        }
+      },
+      "OrderDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PartnerOrderExtended"
+          }
+        }
+      },
+      "ConfirmOrderResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully Created Order"
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "order_id": {
+            "type": "integer",
+            "example": 98765
+          },
+          "order_data": {
+            "$ref": "#/components/schemas/PartnerOrderExtended",
+            "nullable": true
+          }
+        }
+      },
+      "TransferAuthCodeResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully fetched auth code"
+          },
+          "auth_code": {
+            "type": "string",
+            "example": "AUTH-CODE-123"
+          }
+        }
+      },
+      "NewListingDomain": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "selling_price": {
+            "type": "string",
+            "example": "$9,995"
+          },
+          "listing_type": {
+            "type": "string",
+            "enum": [
+              "Curated",
+              "Standard"
+            ],
+            "example": "Curated"
+          },
+          "word1": {
+            "type": "string",
+            "nullable": true,
+            "example": "bright"
+          },
+          "word2": {
+            "type": "string",
+            "nullable": true,
+            "example": "ly"
+          },
+          "word3": {
+            "type": "string",
+            "nullable": true
+          },
+          "type_of_name": {
+            "type": "string",
+            "nullable": true,
+            "example": "One Word"
+          }
+        }
+      },
+      "NewListingsResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "total_records": {
+            "type": "integer",
+            "example": 1
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-07-21"
+          },
+          "listing_type_filter": {
+            "type": "string",
+            "example": "All"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewListingDomain"
+            }
+          }
+        }
+      },
+      "SemanticSearchDomain": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "image_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "tld": {
+            "type": "string",
+            "example": "com"
+          },
+          "structure": {
+            "type": [
+              "string",
+              "integer"
+            ],
+            "example": 8
+          },
+          "emotion": {
+            "type": [
+              "string",
+              "array"
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "example": 9995
+          },
+          "selling_price": {
+            "type": "number",
+            "example": 9995
+          },
+          "discount_price": {
+            "type": "number",
+            "example": 0
+          },
+          "type_of_name": {
+            "type": "string",
+            "example": "One Word"
+          },
+          "special_collection": {
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "type": "number",
+            "example": 0.87
+          },
+          "pricing_type": {
+            "type": "string",
+            "example": "BIN"
+          },
+          "price_text": {
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "SemanticSearchResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "query": {
+            "type": "string",
+            "example": "tech startup names"
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "page_size": {
+            "type": "integer",
+            "example": 20
+          },
+          "total": {
+            "type": "integer",
+            "example": 20
+          },
+          "total_pages": {
+            "type": "integer",
+            "example": 1
+          },
+          "processing_time_ms": {
+            "type": "number",
+            "example": 312.45
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SemanticSearchDomain"
+            }
+          }
+        }
+      },
+      "CategoryItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 12
+          },
+          "name": {
+            "type": "string",
+            "example": "Technology"
+          }
+        }
+      },
+      "PrimaryCategoriesResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Primary categories list"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Technology",
+              "Health",
+              "Finance"
+            ]
+          }
+        }
+      },
+      "DomainAnalyticsResponse": {
+        "type": "object",
+        "properties": {
+          "total_views": {
+            "type": "integer",
+            "example": 1520
+          },
+          "total_shortlists": {
+            "type": "integer",
+            "example": 84
+          },
+          "total_offers": {
+            "type": "integer",
+            "example": 3
+          }
+        }
+      },
+      "DnsVerifyResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "DNS check request accepted"
+          }
+        }
+      },
+      "SaleRecord": {
+        "type": "object",
+        "properties": {
+          "Domain Name": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "sales_type": {
+            "type": "string",
+            "example": "Premium"
+          },
+          "sale_date": {
+            "type": "string",
+            "example": "Mar 09, 2026 10:15:22"
+          },
+          "sale_amount": {
+            "type": "number",
+            "example": 9995
+          },
+          "sale_amount_net": {
+            "type": "number",
+            "example": 8495.75
+          },
+          "sale_terms": {
+            "type": "string",
+            "example": "Outright"
+          },
+          "transfer_status": {
+            "type": "string",
+            "example": "AuthCode Sent"
+          },
+          "added_on": {
+            "type": "string",
+            "example": "Jan 12, 2025 08:00:00"
+          }
+        }
+      },
+      "DomainAppraisalResponse": {
+        "type": "object",
+        "properties": {
+          "domain_name": {
+            "type": "string",
+            "example": "brightly.com"
+          },
+          "atom_appraisal": {
+            "type": [
+              "number",
+              "integer",
+              "string",
+              "null"
+            ],
+            "example": 387500
+          },
+          "domain_score": {
+            "type": [
+              "number",
+              "string"
+            ],
+            "example": "9.00"
+          },
+          "positive_signals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "negative_signals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "root_words": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tld_taken_count": {
+            "type": "integer",
+            "example": 112
+          },
+          "tm_conflicts": {
+            "type": [
+              "integer",
+              "object",
+              "array"
+            ],
+            "example": 30
+          },
+          "date_registered": {
+            "type": "string",
+            "nullable": true,
+            "example": "1998-01-23 05:00:00"
+          },
+          "external_message": {
+            "type": "string",
+            "nullable": true
+          },
+          "appraisal_token": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_listed": {
+            "type": "boolean",
+            "example": false
+          },
+          "bin_price": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ApiUsage"
+          },
+          "bonus_credits_remaining": {
+            "type": "integer",
+            "example": 244
+          }
+        }
+      },
+      "TrademarkSearchResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "keyword": {
+            "type": "string",
+            "example": "brightly"
+          },
+          "search_type": {
+            "type": "string",
+            "example": "phrase"
+          },
+          "filing_status": {
+            "type": "string",
+            "example": "all"
+          },
+          "class": {
+            "type": "string",
+            "nullable": true
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "page_size": {
+            "type": "integer",
+            "example": 3
+          },
+          "total_results": {
+            "type": "integer",
+            "example": 103
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrademarkRecord"
+            }
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ApiUsage"
+          }
+        }
+      },
+      "SmartDomainSearchResponse": {
+        "type": "object",
+        "properties": {
+          "premium_domains": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "domain_name": {
+                  "type": "string"
+                },
+                "availability": {
+                  "type": "integer"
+                },
+                "selling_price": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "image_url": {
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "generated_domains": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Map of generated name variants to availability check results"
+          }
+        }
+      },
       "Error": {
         "required": [
-          "error",
           "message"
         ],
         "type": "object",
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "success": {
+            "type": "boolean",
+            "example": false
           },
           "message": {
             "type": "string"
+          },
+          "retry_after": {
+            "type": "integer"
+          }
+        }
+      },
+      "TrademarkOwnerDetail": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "party_type": {
+            "type": "string"
+          },
+          "legal_entity_type_code": {
+            "type": "string"
+          },
+          "entry_number": {
+            "type": "string"
+          },
+          "dba": {
+            "type": "string"
+          }
+        }
+      },
+      "TrademarkCaseFileEvent": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "description-text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "TrademarkRecord": {
+        "type": "object",
+        "properties": {
+          "trademark_name": {
+            "type": "string",
+            "example": "BRIGHTLY"
+          },
+          "serial_number": {
+            "type": "string",
+            "example": "88421013"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status_category": {
+            "type": "string",
+            "example": "Dead"
+          },
+          "status_subcategory": {
+            "type": "string",
+            "example": "Abandoned"
+          },
+          "status_code": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "example": 606
+          },
+          "international_classes": {
+            "type": "string",
+            "example": "009"
+          },
+          "owners": {
+            "type": "string"
+          },
+          "owners_full_details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrademarkOwnerDetail"
+            }
+          },
+          "filing_date": {
+            "type": "string",
+            "example": "2019-05-08"
+          },
+          "registration_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "status_date": {
+            "type": "string"
+          },
+          "mark_drawing_code": {
+            "type": "string"
+          },
+          "standard_characters_claimed": {
+            "type": "string"
+          },
+          "trademark_in": {
+            "type": "string"
+          },
+          "service_mark_in": {
+            "type": "string"
+          },
+          "collective_service_mark_in": {
+            "type": "string"
+          },
+          "collective_membership_mark_in": {
+            "type": "string"
+          },
+          "certification_mark_in": {
+            "type": "string"
+          },
+          "intent_to_use_in": {
+            "type": "string"
+          },
+          "intent_to_use_current_in": {
+            "type": "string"
+          },
+          "attorney_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "attorney_correspondence": {
+            "type": "string",
+            "nullable": true
+          },
+          "attorney_doc_number": {
+            "type": "string",
+            "nullable": true
+          },
+          "case_file_events_statements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrademarkCaseFileEvent"
+            }
+          },
+          "logo_path": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "_score": {
+            "type": "number"
+          }
+        }
+      },
+      "ApiUsage": {
+        "type": "object",
+        "properties": {
+          "used_today": {
+            "type": "integer",
+            "example": 1
+          },
+          "daily_limit": {
+            "type": "integer",
+            "example": 10
+          },
+          "cumulative_count": {
+            "type": "integer",
+            "example": 1
+          },
+          "user_level": {
+            "type": "string",
+            "example": "B"
+          },
+          "bonus_credits_used": {
+            "type": "boolean"
+          },
+          "bonus_credits_remaining": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "DomainSearchResult": {
+        "type": "object",
+        "description": "Seller portfolio search result (MarketPlaceDomain::getDisplayData + category fields).",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 16109255
+          },
+          "base_name": {
+            "type": "string",
+            "example": "Cirro"
+          },
+          "domain_name": {
+            "type": "string",
+            "example": "Cirro.com"
+          },
+          "selling_price": {
+            "type": "number"
+          },
+          "visual_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "sale_price": {
+            "type": "number"
+          },
+          "discount_price": {
+            "type": "number"
+          },
+          "sale_visual_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "on_discount": {
+            "type": "boolean"
+          },
+          "make_offer": {
+            "type": "integer"
+          },
+          "on_make_offer": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "GradeDomainResultItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "domain_name": {
+            "type": "string"
+          },
+          "total_gpt_reviews": {
+            "type": "integer"
+          },
+          "total_gpt_favourites": {
+            "type": "integer"
+          },
+          "total_gpt_reverse_reviews": {
+            "type": "integer"
+          },
+          "total_gpt_negative_votes": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "is_brand_fit": {
+            "type": "integer"
+          },
+          "close_out_domain_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "market_place_domain_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "total_gpt_final_reviews": {
+            "type": "integer"
+          },
+          "total_gpt_final_favourites": {
+            "type": "integer"
+          },
+          "done_grading": {
+            "type": "integer"
+          },
+          "slot": {
+            "type": "string"
+          },
+          "meta_data": {
+            "nullable": true
+          },
+          "date_submitted": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "premium_fit": {
+            "type": "string"
+          }
+        }
+      },
+      "GradeDomainResultResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 8261
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GradeDomainResultItem"
+            }
           }
         }
       }
