@@ -130,7 +130,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -140,7 +140,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -150,7 +150,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -160,7 +160,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -170,7 +170,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -180,7 +180,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -232,7 +232,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -242,7 +242,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -252,7 +252,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -262,7 +262,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -272,7 +272,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -282,7 +282,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -370,7 +370,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -380,7 +380,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -390,7 +390,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -400,7 +400,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -410,7 +410,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -420,7 +420,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -488,7 +488,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -498,7 +498,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -508,7 +508,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -518,7 +518,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -528,7 +528,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -538,7 +538,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -682,7 +682,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -692,7 +692,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -702,7 +702,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -712,7 +712,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -722,7 +722,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -732,7 +732,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -866,7 +866,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -876,7 +876,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -886,7 +886,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -896,7 +896,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -906,7 +906,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -916,7 +916,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -988,7 +988,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -998,7 +998,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1008,7 +1008,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1018,7 +1018,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1028,7 +1028,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1038,7 +1038,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1095,7 +1095,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1105,7 +1105,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1115,7 +1115,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1125,7 +1125,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1135,7 +1135,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1145,7 +1145,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1212,7 +1212,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1222,7 +1222,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1232,7 +1232,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1242,7 +1242,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1252,7 +1252,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1262,7 +1262,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1341,7 +1341,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1351,7 +1351,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1361,7 +1361,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1371,7 +1371,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1381,7 +1381,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1391,7 +1391,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1458,7 +1458,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1468,7 +1468,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1478,7 +1478,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1488,7 +1488,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1498,7 +1498,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1508,7 +1508,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1556,7 +1556,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1566,7 +1566,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1576,7 +1576,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1586,7 +1586,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1596,7 +1596,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1606,7 +1606,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1684,7 +1684,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1694,7 +1694,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1704,7 +1704,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1714,7 +1714,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1724,7 +1724,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1734,7 +1734,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1801,7 +1801,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1811,7 +1811,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1821,7 +1821,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1831,7 +1831,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1841,7 +1841,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1851,7 +1851,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -1914,7 +1914,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -1924,7 +1924,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -1934,7 +1934,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -1944,7 +1944,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -1954,7 +1954,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -1964,7 +1964,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2012,7 +2012,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2022,7 +2022,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2032,7 +2032,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2042,7 +2042,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2052,7 +2052,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2062,7 +2062,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2140,7 +2140,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2150,7 +2150,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2160,7 +2160,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2170,7 +2170,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2180,7 +2180,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2190,7 +2190,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2246,7 +2246,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2256,7 +2256,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2266,7 +2266,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2276,7 +2276,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2286,7 +2286,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2296,7 +2296,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2355,7 +2355,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2365,7 +2365,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2375,7 +2375,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2385,7 +2385,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2395,7 +2395,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2405,7 +2405,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2532,7 +2532,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2542,7 +2542,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2552,7 +2552,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2562,7 +2562,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2572,7 +2572,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2582,7 +2582,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2658,7 +2658,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2668,7 +2668,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2678,7 +2678,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2688,7 +2688,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2698,7 +2698,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2708,7 +2708,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2762,7 +2762,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2772,7 +2772,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2782,7 +2782,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2792,7 +2792,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2802,7 +2802,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2812,7 +2812,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2877,7 +2877,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2887,7 +2887,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2897,7 +2897,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -2907,7 +2907,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -2917,7 +2917,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -2927,7 +2927,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -2975,7 +2975,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -2985,7 +2985,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -2995,7 +2995,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3005,7 +3005,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3015,7 +3015,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3025,7 +3025,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3073,7 +3073,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3083,7 +3083,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3093,7 +3093,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3103,7 +3103,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3113,7 +3113,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3123,7 +3123,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3171,7 +3171,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3181,7 +3181,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3191,7 +3191,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3201,7 +3201,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3211,7 +3211,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3221,7 +3221,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3298,7 +3298,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3308,7 +3308,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3318,7 +3318,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3328,7 +3328,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3338,7 +3338,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3348,7 +3348,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3455,7 +3455,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3465,7 +3465,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3475,7 +3475,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3485,7 +3485,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3495,7 +3495,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3505,7 +3505,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3560,7 +3560,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3570,7 +3570,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3580,7 +3580,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3590,7 +3590,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3600,7 +3600,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3610,7 +3610,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3696,7 +3696,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3706,7 +3706,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3716,7 +3716,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3726,7 +3726,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3736,7 +3736,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3746,7 +3746,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3795,7 +3795,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3805,7 +3805,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3815,7 +3815,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3825,7 +3825,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3835,7 +3835,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3845,7 +3845,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3916,7 +3916,7 @@
               }
             }
           },
-          "0": {
+          "400": {
             "description": "Bad request",
             "content": {
               "application/json": {
@@ -3926,7 +3926,7 @@
               }
             }
           },
-          "1": {
+          "401": {
             "description": "Missing or invalid Bearer token",
             "content": {
               "application/json": {
@@ -3936,7 +3936,7 @@
               }
             }
           },
-          "2": {
+          "403": {
             "description": "Forbidden for this domain",
             "content": {
               "application/json": {
@@ -3946,7 +3946,7 @@
               }
             }
           },
-          "3": {
+          "404": {
             "description": "Domain not found",
             "content": {
               "application/json": {
@@ -3956,7 +3956,7 @@
               }
             }
           },
-          "4": {
+          "429": {
             "description": "Rate limit exceeded",
             "content": {
               "application/json": {
@@ -3966,7 +3966,7 @@
               }
             }
           },
-          "5": {
+          "500": {
             "description": "Internal server error",
             "content": {
               "application/json": {
@@ -3982,116 +3982,6 @@
             "BearerAuth": []
           }
         ]
-      }
-    },
-    "/registrar/v1/domains/{domain_name}/dns/filter": {
-      "get": {
-        "summary": "Filter DNS records",
-        "description": "Filter DNS records by subdomain and/or record type. Useful for finding specific records.",
-        "parameters": [
-          {
-            "name": "domain_name",
-            "in": "path",
-            "description": "Domain name (e.g., 'example.com')",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "subdomain",
-            "in": "query",
-            "description": "Subdomain to filter by (use '@' for root domain)",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "DNS record type to filter by (A, AAAA, CNAME, MX, TXT, etc.)",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DnsRecordsFilterResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          }
-        }
-      }
-    },
-    "/registrar/v1/domains/{domain_name}/dns/bulk-update": {
-      "put": {
-        "summary": "Bulk update DNS records",
-        "description": "Update all DNS records matching specific subdomain and type criteria. Updates content and optionally TTL for all matching records.",
-        "parameters": [
-          {
-            "name": "domain_name",
-            "in": "path",
-            "description": "Domain name (e.g., 'example.com')",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DnsBulkUpdateRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "DNS records updated successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkOperationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          }
-        }
       }
     }
   },
