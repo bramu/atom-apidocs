@@ -6,7 +6,7 @@ title: Integration Steps
 
 Atom Registrar API Documentation
 
-This document describes the REST API for domain registration, DNS management, and domain operations. The Registrar API provides comprehensive functionality for managing domains, DNS records, nameservers, privacy settings, auto-renewal, URL forwarding, and DNSSEC.
+This document describes the REST API for domain registration, DNS management, and domain operations. The Registrar API provides comprehensive functionality for managing domains, DNS records, nameservers, privacy settings, auto-renewal, URL forwarding, DNSSEC, contacts, TLD pricing, renewal, and registrar lock.
 
 ## Authentication
 
@@ -29,9 +29,11 @@ The Registrar API includes the following main categories:
 
 ### Domain Management
 - List all domains
-- Check domain availability (single and bulk)
-- Register new domains
-- Get domain details
+- Check domain availability and Atom price (single and bulk)
+- Catalog TLD pricing (`GET /tld-pricing`)
+- Register new domains (optional nameservers, privacy, auto-renew, contacts, DNS records in the same request)
+- Renew a domain you already hold at Atom
+- Get domain details (includes ICANN 60-day lock fields)
 
 ### DNS Management
 - List DNS records
@@ -44,22 +46,42 @@ The Registrar API includes the following main categories:
 - Update nameservers (Atom, Parking, or Custom)
 
 ### Domain Settings
+- Get / set registrar transfer lock (`GET`/`PUT /domains/{domain}/lock`). Unlocking is dashboard-only.
 - Toggle privacy protection
 - Toggle auto-renewal
 - Manage URL forwarding rules
+
+### Transfers
+- Transfer **in** with `POST /domains/transfer` (auth code from the losing registrar)
+- Transfer **out** is not available via API. Unlocking a domain and retrieving an EPP / auth code must be done in the Atom dashboard.
 
 ### DNSSEC
 - Get DNSSEC records
 - Enable/disable DNSSEC
 
+### Contacts
+- List or search contact handles (`?search=`, `?name=`, `?email=`)
+- Get a single contact by handle
+- Create and update contacts
+- Get / assign domain contact roles
+
 ## Common Workflows
 
 ### Registering a Domain
 
-1. **Check Availability**: Use `GET /domains/check/{domain_name}` or `POST /domains/check-bulk` to verify domain availability
-2. **Register Domain**: Use `POST /domains/register` to register the domain
-3. **Configure DNS**: Use DNS management endpoints to set up DNS records
-4. **Set Nameservers**: Use nameserver endpoints to configure nameservers
+1. **Price**: Use `GET /domains/check/{domain_name}` for that label (includes premium). Use `GET /tld-pricing` for catalog register / renew / transfer prices.
+2. **Check Availability**: Use `GET /domains/check/{domain_name}` or `POST /domains/check-bulk`
+3. **Register Domain**: Use `POST /domains/register`. You may send nameservers, `privacy_protect`, `auto_renew`, `contacts`, and `dns_records` in the same request.
+4. **Configure DNS**: Use DNS management endpoints if the domain is on Atom nameservers
+
+### Renewing a Domain
+
+Use `POST /domains/{domain_name}/renew` with optional `renewal_length` (1–10 years; `.ai` must be even).
+
+### Transfer lock
+
+1. `GET /domains/{domain_name}/lock` returns the customer registrar lock and the ICANN 60-day lock (`icann_transfer_lock_expires_at`).
+2. `PUT /domains/{domain_name}/lock` with `{"locked": true}` locks the domain. `{"locked": false}` returns **403** — unlock and transfer-out are dashboard-only.
 
 ### Managing DNS Records
 

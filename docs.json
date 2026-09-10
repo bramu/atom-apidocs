@@ -62,7 +62,9 @@
               "api-reference/registrar_apis/get_domain_details",
               "api-reference/registrar_apis/check_domain",
               "api-reference/registrar_apis/check_bulk_domains",
-              "api-reference/registrar_apis/register_domain"
+              "api-reference/registrar_apis/get_tld_pricing",
+              "api-reference/registrar_apis/register_domain",
+              "api-reference/registrar_apis/renew_domain"
             ]
           },
           {
@@ -89,6 +91,8 @@
             "pages": [
               "api-reference/registrar_apis/get_nameservers",
               "api-reference/registrar_apis/update_nameservers",
+              "api-reference/registrar_apis/get_lock",
+              "api-reference/registrar_apis/set_lock",
               "api-reference/registrar_apis/toggle_privacy",
               "api-reference/registrar_apis/toggle_auto_renew"
             ]
@@ -113,8 +117,10 @@
             "group": "Contacts",
             "pages": [
               "api-reference/registrar_apis/list_contacts",
+              "api-reference/registrar_apis/get_contact",
               "api-reference/registrar_apis/create_contact",
               "api-reference/registrar_apis/update_contact",
+              "api-reference/registrar_apis/get_domain_contacts",
               "api-reference/registrar_apis/update_domain_contacts"
             ]
           }
