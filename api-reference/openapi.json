@@ -315,7 +315,7 @@
     },
     "/remove-domain": {
       "get": {
-        "description": "Remove a Standard listing from your account. This method only supports Standard listings. For removing Premium Listings, please contact Atom team to give a 7 day removal notice",
+        "description": "Remove a Standard listing from your account. This method only supports Standard listings. For removing Premium Listings, please contact Atom team to give a 30 day removal notice",
         "parameters": [
           {
             "name": "api_token",
