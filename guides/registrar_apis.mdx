@@ -71,7 +71,7 @@ The Registrar API includes the following main categories:
 
 1. **Price**: Use `GET /domains/check/{domain_name}` for that label (includes premium). Use `GET /tld-pricing` for catalog register / renew / transfer prices.
 2. **Check Availability**: Use `GET /domains/check/{domain_name}` or `POST /domains/check-bulk`
-3. **Register Domain**: Use `POST /domains/register`. You may send nameservers, `privacy_protect`, `auto_renew`, `contacts`, and `dns_records` in the same request.
+3. **Register Domain**: Use `POST /domains/register`. You may send nameservers, `privacy_protect`, `auto_renew`, `contacts`, `dns_records`, and optional `coupon` in the same request.
 4. **Configure DNS**: Use DNS management endpoints if the domain is on Atom nameservers
 
 ### Renewing a Domain

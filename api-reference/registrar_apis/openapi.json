@@ -562,7 +562,7 @@
           "Domains"
         ],
         "summary": "Register a domain",
-        "description": "Register a domain for 1\u201310 years (.ai requires an even length). Requires account balance or a saved payment method. After a successful registration you may set nameservers, WHOIS privacy, auto-renew, contact handles, and DNS records in this same request; they are applied immediately. DNS records require Atom nameservers (omit nameservers, or set type atom/parking).",
+        "description": "Register a domain for 1\u201310 years (.ai requires an even length). Requires account balance or a saved payment method. Optional coupon applies discounted pricing when valid. After a successful registration you may set nameservers, WHOIS privacy, auto-renew, contact handles, and DNS records in this same request; they are applied immediately. DNS records require Atom nameservers (omit nameservers, or set type atom/parking).",
         "operationId": "registerDomain",
         "requestBody": {
           "required": true,
@@ -583,6 +583,11 @@
                     "minimum": 1,
                     "maximum": 10,
                     "default": 1
+                  },
+                  "coupon": {
+                    "type": "string",
+                    "description": "Optional coupon code to apply discounted registrar pricing.",
+                    "example": "SAVE10"
                   },
                   "nameservers": {
                     "description": "Set nameservers in the same request. Pass an array of hostnames (treated as custom) or {type, nameservers}. type: atom (ns1/ns2.atom.com), parking (ns1/ns2.atomregistrar.com), or custom. DNS records only apply when the domain stays on Atom nameservers (atom or parking).",
