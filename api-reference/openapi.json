@@ -1776,6 +1776,15 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "name": "domain_name",
+            "in": "query",
+            "description": "Domain name (e.g., example.com)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
